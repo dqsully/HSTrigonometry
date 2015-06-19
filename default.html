@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>
+  <title>Trigonometry</title>
+  <meta charset="utf-8">
+  <script>
+    var docCookies = {
+      getItem: function (sKey) {
+          if (!sKey) { return null; }
+          return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+      },
+      setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+          if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
+          var sExpires = "";
+          if (vEnd) {
+              switch (vEnd.constructor) {
+                  case Number:
+                      sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+                      break;
+                  case String:
+                      sExpires = "; expires=" + vEnd;
+                      break;
+                  case Date:
+                      sExpires = "; expires=" + vEnd.toUTCString();
+                      break;
+              }
+          }
+          document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+          return true;
+      },
+      removeItem: function (sKey, sPath, sDomain) {
+          if (!this.hasItem(sKey)) { return false; }
+          document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+          return true;
+      },
+      hasItem: function (sKey) {
+          if (!sKey) { return false; }
+          return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+      },
+      keys: function () {
+          var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+          for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
+          return aKeys;
+      }
+    };
+    function box(el) {
+      return el.getBoundingClientRect();
+    }
+    function x(el) {
+      return box(el).left;
+    }
+    function y(el) {
+      return box(el).top;
+    }
+    function width(el) {
+      return box(el).width;
+    }
+    function height(el) {
+      return box(el).height;
+    }
+    function t(el) {
+      return box(el).top;
+    }
+    function b(el) {
+      return box(el).bottom;
+    }
+    function l(el) {
+      return box(el).left;
+    }
+    function r(el) {
+      return box(el).right;
+    }
+    function d(el) {
+      return document.getElementById(el);
+    }
+
+    var scrollwidth;
+    var jumptog = false;
+    //Push an array containing miss element then function
+    //  If function returns false, entry stays
+    var outclicks = [];
+    function outclickpush(elem, func) {
+      outclicks.push([elem, func]);
+    }
+    
+    var units;
+    var currentUnit;
+    var jumpto, jumpcont;
+
+    function ready() {
+      jumpto = d('jumpto');
+      jumpcont = d('jumpcont');
+      document.body.style.overflow = 'hidden';
+      scrollwidth = width(document.body);
+      document.body.style.overflow = 'initial';
+      scrollwidth -= width(document.body);
+      units = document.getElementsByClassName('unit');
+      toUnit((docCookies.hasItem('unit') ? +docCookies.getItem('unit') : 0));
+      jumpto.onclick = function(e) {
+        if(e.clientY - y(jumpto) <= 24) {
+          if(jumptog) {
+            //put it back
+            jumpto.style.height = '24px';
+            jumpto.className = 'a';
+            setTimeout(function() {jumpto.className = '';}, 150);
+            outclicks.pop();
+            jumptog = false;
+          } else {
+            //expand it
+            jumpto.style.height = jumpcont.clientHeight + 'px';
+            jumpto.className = 'a b';
+            setTimeout(function() {jumpto.className = 'b';}, 150);
+            jumptog = true;
+            outclickpush(jumpto, function(e) {
+              jumpto.style.height = '24px';
+              jumpto.className = 'sel o';
+              jumptog = false;
+              e.stopImmediatePropagation();
+            });
+          }
+        } else if(e.target.getAttribute('marker') !== null) {
+          if(d(e.target.getAttribute('marker')).getAttribute('top') == '1') units[currentUnit].scrollTo(0, 0); else units[currentUnit].scrollTo(0, d(e.target.getAttribute('marker')).offsetTop);
+          jumpto.style.height = '24px';
+          jumpto.className = '';
+          outclicks.pop();
+          jumptog = false;
+        }
+        e.stopPropagation();
+      };
+      for(var i=0; i<units.length; i++) {
+        units[i].onscroll = function() {
+          var ty = units[currentUnit].scrollTop / units[currentUnit].scrollTopMax * units[currentUnit].offsetHeight;
+          var min = units[currentUnit].scrollTopMax;
+          var ems = units[currentUnit].getElementsByClassName('anchor');
+          var tmp;
+          var it;
+          for(var i=0; i<ems.length; i++) {
+            tmp = ty - (ems[i].getAttribute('top') == '1' ? 0 : ems[i].offsetTop) + units[currentUnit].scrollTop;
+            if(tmp < min && tmp >= 0) {
+              min = tmp;
+              it = ems[i];
+            }
+          }
+          d('jumpdisp').textContent = (it == null ? (ems[0] == undefined ? '' : ems[0].textContent) : it.textContent);
+        };
+      }
+      (window.onresize = function() {
+        jumpto.parentNode.parentNode.style.marginRight = d('author').offsetWidth + 25 + 'px';
+        var ems = units[currentUnit].getElementsByClassName('image');
+        var w = document.body.offsetWidth;
+        for(var i=0; i<ems.length; i++) {
+          if(ems[i].getAttribute('h') !== null){
+            ems[i].style.width = '';
+            ems[i].style.height = ems[i].getAttribute('h');
+          }
+          if(ems[i].offsetWidth + 54 >= w) {
+            ems[i].style.width = '100%';
+            ems[i].setAttribute('h', ems[i].style.height);
+            ems[i].style.height = '';
+          } else if(ems[i].getAttribute('h') !== null) {
+            ems[i].removeAttribute('h');
+          }
+        }
+        jumpcont.style.width = 'auto';
+        var max = 0;
+        ems = jumpcont.getElementsByClassName('g');
+        for(var i=0; i<ems.length; i++) {
+          if(ems[i].offsetWidth>max)max=ems[i].offsetWidth;
+        }
+        jumpcont.style.width = max + 27 + 'px';
+        d('page').style.marginTop = navh() + 'px';
+        d('page').style.height = window.innerHeight - navh() + 'px';
+        units[currentUnit].onscroll();
+        for(var i=0; i<units.length; i++) {
+          units[i].style.transition = 'translate 0s';
+          units[i].style.transform = 'translate(-' + currentUnit * window.innerWidth + 'px)';
+          t(i);
+        }
+        ems = units[currentUnit].getElementsByClassName('eqmap');
+        if(units[currentUnit].offsetWidth - 34 < 930) {
+          for(var i=0; i<ems.length; i++) {
+            ems[i].style.maxWidth = units[currentUnit].offsetWidth - 34 + 'px';
+          }
+        } else {
+          for(var i=0; i<ems.length; i++) {
+            ems[i].style.maxWidth = '';
+          }
+        }
+      })();
+      var imgfunc = function (e) {
+        var f = d('floater');
+        var bg = d('bg');
+        var b = box(e.target);
+        f.style.left = b.left + 'px';
+        f.style.top = b.top + 'px';
+        f.style.width = b.width + 'px';
+        f.style.height = b.height + 'px';
+        f.style.display = 'block';
+        f.appendChild(document.cloneNode(e.target));
+        e.target.style.visibility = 'hidden';
+        bg.style.display = 'block';
+        f.className = 'moving';
+        document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = scrollwidth + 'px';
+        d('nav').children[5].style.right = scrollwidth + 20 + 'px';
+        setTimeout(function() {
+          var t = performance.now();
+          bg.style.opacity = '1';
+          if(b.width/b.height < window.innerWidth/window.innerHeight) {
+            f.style.top = '0';
+            f.style.height = '100%';
+            f.style.left = (window.innerWidth - window.innerHeight/b.height*b.width)/2 + 'px';
+            f.style.width = (window.innerHeight/b.height*b.width) + 'px';
+          } else {
+            f.style.left = '0';
+            f.style.width = '100%';
+            f.style.top = (window.innerHeight - window.innerWidth/b.width*b.height)/2 + 'px';
+            f.style.height = (window.innerWidth/b.width*b.height) + 'px';
+          }
+          var c = document.onclick;
+          document.onclick = function() {
+            b = box(e.target);
+            bg.style.opacity = '0';
+            f.style.left = b.left + 'px';
+            f.style.top = b.top + 'px';
+            f.style.width = b.width + 'px';
+            f.style.height = b.height + 'px';
+            document.onclick = c;
+            setTimeout(function() {
+              e.target.style.visibility = '';
+              bg.style.display = 'none';
+              f.style.display = 'none';
+              f.className = '';
+              f.children[0] = null;
+              document.body.style.overflow = '';
+              document.body.style.marginRight = '';
+              d('nav').children[5].style.right = '';
+            }, performance.now() - t > 600 ? 600 : performance.now() - t);
+          };
+        }, 20); //Run this a frame later after the position and class effects have taken place
+      };
+      var imgs = document.getElementsByClassName('image');
+      for(var i=0; i<imgs.length; i++) {
+        if(imgs[i].parentNode.className == 'topic') {
+          imgs[i].onclick = imgfunc;
+        }
+      }
+      d('leftarrow').addEventListener('click', function() {
+        toUnit(currentUnit - 1);
+      });
+      d('rightarrow').addEventListener('click', function() {
+        toUnit(currentUnit + 1);
+      });
+      d('leftarrow').addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        d('leftarrow').className = 'active';
+      });
+      d('rightarrow').addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        d('rightarrow').className = 'active';
+      });
+      d('leftarrow').addEventListener('mouseup', function(e) {
+        d('leftarrow').className = '';
+      });
+      d('rightarrow').addEventListener('mouseup', function(e) {
+        d('rightarrow').className = '';
+      });
+    }
+    
+    function toUnit(n) {
+      if(n >= units.length || n < 0) return;
+      docCookies.setItem('unit', n, Infinity);
+      var ems = d('page').getElementsByClassName('unit');
+      for(var i=0; i<ems.length; i++) {
+        ems[i].style.transform = 'translate(-' + n * window.innerWidth + 'px)';
+      }
+      d('page').style.height = units[n].offsetHeight;
+      currentUnit = n;
+      jumpcont.className = 'un' + (n + 1);
+      jumpto.parentNode.parentNode.style.marginRight = width(d('author')) + 25 + 'px';
+      jumpto.parentNode.parentNode.style.marginRight = d('author').offsetWidth + 25 + 'px';
+      ems = units[currentUnit].getElementsByClassName('image');
+      var w = document.body.offsetWidth;
+      for(var i=0; i<ems.length; i++) {
+        if(ems[i].getAttribute('h') !== null){
+          ems[i].style.width = '';
+          ems[i].style.height = ems[i].getAttribute('h');
+        }
+        if(ems[i].offsetWidth + 54 >= w) {
+          ems[i].style.width = '100%';
+          ems[i].setAttribute('h', ems[i].style.height);
+          ems[i].style.height = '';
+        } else if(ems[i].getAttribute('h') !== null) {
+          ems[i].removeAttribute('h');
+        }
+      }
+      jumpcont.style.width = 'auto';
+      var max = 0;
+      ems = jumpcont.getElementsByClassName('g');
+      for(var i=0; i<ems.length; i++) {
+        if(ems[i].offsetWidth>max)max=ems[i].offsetWidth;
+      }
+      jumpcont.style.width = max + 27 + 'px';
+      d('page').style.marginTop = navh() + 'px';
+      d('page').style.height = window.innerHeight - navh() + 'px';
+      if(units[currentUnit].onscroll) units[currentUnit].onscroll();
+    }
+
+    function navh() {
+      return d('nav').offsetHeight + 5;
+    }
+    
+    function t(i) {
+      setTimeout(function() {
+        units[i].style.transition = '';
+      }, 16);
+    }
+
+    document.addEventListener('click', function(e) {
+      var miss;
+      var cont = false;
+      var tmp = [];
+      do {
+        miss = outclicks.pop();
+        if(miss === undefined) break;
+        if(typeof miss == 'object' && typeof miss[0] == 'object' && typeof miss[1] == 'function') {
+          if(e.target === miss[0]) {
+            tmp.push(miss);
+          } else {
+            if(miss[1](e) === false) tmp.push(miss);
+            else cont = true;
+          }
+        }
+      } while(!cont);
+      for(var i=0; i<tmp.length; i++) {
+        outclicks.push(tmp.pop());
+      }
+    });
+  </script>
+  <style>
+    /*
+    Colors:
+    Bright: #f14327
+    Toned Down: #b54f31
+    Toned Down Hover: #ffe0d4
+    */
+
+    /*Body*/
+    body {
+      padding: 0;
+      margin: 0;
+      border: 0;
+      font-family: Calibri;
+      overflow: hidden;
+      font-size: 18px;
+    }
+    body:before {
+      content: "";
+      position: fixed;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,.8);
+      z-index: 100;
+    }
+    body:after {
+      content: "";
+      position: fixed;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,.8);
+      z-index: 100;
+    }
+    p {
+      text-indent: 36px;
+    }
+    a {
+      text-decoration: none;
+      color: #7c31b5;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /*Global*/
+    .r {float: right;}              /*Float right*/
+    .l {float: left;}               /*Float left*/
+    .u {                            /*Unselectable*/
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .vl {                           /*Vertical line*/
+      height: 80%;
+      margin: 0 16px;
+      transform: translate(0,10%);
+      width: 1px;
+      background-color: black;
+      border-radius: 100px;
+    }
+      .vl.b {                         /*Bold*/
+        width: 2px;
+      }
+      .vl.w {                         /*White*/
+        background-color: white;
+      }
+      .vl.f {                         /*Full*/
+        height: 100%;
+        transform: translate(0,0);
+      }
+      .vl.s {                         /*Slim margins*/
+        margin: 0 4px;
+      }
+    .hl {                           /*Horizontal line*/
+      height: 1px;
+      width: 80%;
+      margin: 8px 0;
+      transform: translate(10%,0);
+      background-color: black;
+    }
+      .hl.b {                         /*Bold*/
+        height: 2px;
+      }
+      .hl.w {                         /*White*/
+        background-color: white;
+      }
+      .hl.f {                         /*Full*/
+        width: 100%;
+        transform: translate(0,0);
+      }
+      .hl.s {                         /*Slim margins*/
+        margin: 4px 0;
+      }
+    .sel {cursor: pointer;}         /*Link cursor*/
+    .cur {cursor: default;}         /*Arrow cursor*/
+    .oh {overflow: hidden;}         /*Hide overflow*/
+    .anchor {                       /*For an achor point*/
+      height: 0px;
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      color: #b54f31;
+    }
+    ul {
+      list-style-image: url(bullet.svg);
+    }
+    .unit {
+      margin: 0 30px;
+      position: relative;
+      flex: 0 0 auto;
+      width: calc(100% - 60px);
+      overflow-y: auto;
+      height: 100%;
+      transition: transform 1s cubic-bezier(0.3, 0, .5, 1);
+    }
+    .unit.m {
+      transition: transform 0s;
+    }
+    .unit .topic:not(:first-child) {
+      margin-top: 8px;
+    }
+    .title {
+      color: #b54f31;
+      width: 100%;
+      font-weight: bold;
+      font-size: 48px;
+      text-align: center;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .topic {
+      margin: 0;
+      border: 2px solid #ffe0d4;
+      background-color: #fff6ef;
+      padding: 0 15px;
+      overflow: auto;
+      border-radius: 5px;
+    }
+    .image {
+      cursor: pointer;
+      transition:box-shadow .3s ease-out;
+      z-index: 1;
+      position: relative;
+      background-color: white;
+      margin-bottom: 5px;
+    }
+    .image.r {
+      margin-left: 10px;
+      float: right;
+    }
+    .image.l {
+      margin-right: 10px;
+      float: left;
+    }
+    .image.n {
+      clear: both;
+    }
+    .image:hover {
+      box-shadow: 0 0 20px rgba(1,1,1,.4);
+      z-index: 2;
+    }
+    #floater {
+      position: fixed;
+      display: none;
+      z-index: 99;
+      background-color: white;
+    }
+    #floater.moving {
+      transition: top .6s ease, left .6s ease, width .6s ease, height .6s ease;
+    }
+    .eq {
+      width: 33%;
+      font-size: 16px;
+    }
+    .eqmap {
+      max-width: 930px;
+      padding: 15px 0 15px 15px;
+      margin-bottom: 15px;
+      margin-top: 3px;
+      border: 2px solid #f6e1da;
+      width: 100%;
+      border-radius: 2px;
+    }
+
+    /*Specific*/
+    #nav {
+      background-color: #b54f31;
+      width: 100%;
+      position: fixed;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      top: 0;
+      left: 0;
+      color: white;
+      padding: 5px 7px 0;
+      z-index: 90;
+    }
+      #nav > div {
+        display: block;
+        line-height: 40px;
+        white-space: nowrap;
+      }
+      #nav > .a {
+        font-size: 36px;
+        transform: translate(0,-3px);
+      }
+      #nav > .b {
+        font-size: 24px;
+        display: -webkit-flex;
+        display: flex;
+      }
+      .c {
+        height: 24px;
+        overflow-y: visible;
+        margin: 8px;
+        margin-right: 0;
+      }
+      #jumpto {
+        box-sizing: border-box;
+        height: 24px;
+        overflow-y: hidden;
+        border:1px solid white;
+        background-color: #fff7ee;
+        border-radius: 4px;
+        line-height: 1;
+        font-size: 20px;
+        color: black;
+        padding: 0 2px;
+        transition: height ease-out .2s, border ease-out .2s, transform .05s ease-out, box-shadow .1s ease-out;
+      }
+        #jumpto:hover:not(.b) {
+          transform: scale(1.02);
+        }
+        #jumpto:hover, #jumpto.b {
+          box-shadow: 0 0 20px rgba(1,1,1,.4);
+        }
+        #jumpto.a, #jumpto:active {
+          transform: scale(.97);
+        }
+        #jumpto .arrow path {
+          transform: scale(1);
+          transition: transform .2s ease-out;
+        }
+      #jumpto.b {
+        border-color: black;
+      }
+        #jumpto.b .arrow path {
+          transform: scale(1,-1) translate(0,-24px);
+        }
+      #jumpcont {
+        overflow-x: hidden;
+      }
+      #jumpdisp {
+        margin-left: 3px;
+        -webkit-flex: 1;
+        flex: 1;
+      }
+      #jumpdispcont {
+        display: -webkit-flex;
+        display: flex;
+        width: 100%;
+      }
+      #nav > .e {
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
+      }
+      #nav > .f {
+        font-size: 24px;
+        position: absolute;
+        top: 5px;
+        right: 20px;
+      }
+      #nav .g {
+        padding: 4px 0;
+        margin-left: 3px;
+        cursor: pointer;
+        display: none;
+      }
+        #nav .g:hover {
+          background-color: #ffe0d4;
+        }
+      #nav .o:hover {
+        background-color: #ffe0d4;
+      }
+    #page {
+      margin-top: 63px;
+      overflow: hidden;
+      display: flex;
+    }
+    #leftarrow, #rightarrow {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background-color: rgba(181, 79, 49, 0);
+      transition: background-color .2s;
+      z-index: 89;
+    }
+    #leftarrow:hover, #rightarrow:hover {
+      background-color: rgba(181, 79, 49, 0.25);
+      transition: background-color 0s;
+    }
+    #leftarrow:hover .arrow {
+      animation: 1.4s leftbump infinite;
+    }
+    #rightarrow:hover .arrow {
+      animation: 1.4s rightbump infinite;
+    }
+    #leftarrow {
+      left: 0;
+    }
+    #rightarrow {
+      right: 0;
+    }
+    #leftarrow .arrow {
+      transition: transform .2s;
+      left: 6px;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%) scale(1.5) rotate(90deg);
+    }
+    #leftarrow.active .arrow {
+      transform: translate(0, -50%) rotate(90deg);
+    }
+    #rightarrow.active .arrow {
+      transform: translate(0, -50%) rotate(-90deg);
+    }
+    #rightarrow .arrow {
+      transition: transform .2s;
+      right: 6px;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%) scale(1.5) rotate(-90deg);
+    }
+    @keyframes leftbump {
+      0% {
+        left: 6px;
+      }
+      20% {
+        left: 0px;
+      }
+      80% {
+        left: 0px;
+      }
+    }
+    @-webkit-keyframes leftbump {
+      0% {
+        left: 6px;
+      }
+      20% {
+        left: 0px;
+      }
+      80% {
+        left: 0px;
+      }
+    }
+    @keyframes rightbump {
+      0% {
+        right: 6px;
+      }
+      20% {
+        right: 0px;
+      }
+      80% {
+        right: 0px;
+      }
+    }
+    @-webkit-keyframes rightbump {
+      0% {
+        right: 6px;
+      }
+      20% {
+        right: 0px;
+      }
+      80% {
+        right: 0px;
+      }
+    }
+    
+    #jumpcont.un1 .g.un1 {
+      display: block;
+    }
+    #jumpcont.un2 .g.un2 {
+      display: block;
+    }
+    #jumpcont.un3 .g.un3 {
+      display: block;
+    }
+    #jumpcont.un4 .g.un4 {
+      display: block;
+    }
+    #jumpcont.un5 .g.un5 {
+      display: block;
+    }
+    #jumpcont.un6 .g.un6 {
+      display: block;
+    }
+    #jumpcont.un7 .g.un7 {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="bg" style="position: fixed; display: none; opacity: 0; background-color: black; width: 100%; height: 100%; z-index: 98; top: 0; left: 0; transition: opacity .6s ease-out;"></div>
+  <div id="nav" class="u cur">
+    <div class="a">Trigonometry</div>
+    <div class="vl w b"></div>
+    <div class="b">Jump to:
+      <div class="c">
+        <div id="jumpto">
+          <div id="jumpcont">
+            <div id="jumpdispcont" class="o sel">
+              <div id="jumpdisp" role="d"></div>
+              <svg class="arrow" width="24" height="24">
+                <path style="fill:none;stroke:#b54f31;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="m 4,8 8,8 8,-8"/>
+              </svg>
+            </div>
+            <div class="hl f s" style="margin-top: 0;"></div>
+            <!-- <div class="g" marker="topicid">Title of Topic</div> -->
+            <div class="g un1" marker="un1a">Point-Slope Form for a Line</div>
+            <div class="g un1" marker="un1b">Laws of Exponents and Simplifying Expressions with Exponents</div>
+            <div class="g un1" marker="un1c">Composition of Functions</div>
+            <div class="g un1" marker="un1d">Finding Inverse Functions</div>
+            <div class="g un1" marker="un1e">Simplifying Square Roots and Rationalizing the Denominator</div>
+            <div class="g un1" marker="un1f">Factoring Quadratics and some Cubics</div>
+            <div class="g un1" marker="un1g">Direct and Inverse Functions</div>
+            <div class="g un2" marker="un2a">Piecewise Functions</div>
+            <div class="g un2" marker="un2b">Solving Exponentials by Getting the same Base</div>
+            <div class="g un2" marker="un2c">Solving Exponentials using Logariths</div>
+            <div class="g un2" marker="un2d">The Log Rules: Expanding/Condensing</div>
+            <div class="g un2" marker="un2e">Solving Logarithm Equations</div>
+            <div class="g un2" marker="un2f">Euler's Number and Natural Logs</div>
+            <div class="g un2" marker="un2g">Exponential Applications</div>
+            <div class="g un3" marker="un3a">Right Triangle Trigonometry</div>
+            <div class="g un3" marker="un3b">Law of Sines</div>
+            <div class="g un3" marker="un3c">Law of Cosines</div>
+            <div class="g un3" marker="un3d">Finding Arc Length and Area of a Sector</div>
+            <div class="g un3" marker="un3e">Angles in Standard Position</div>
+            <div class="g un3" marker="un3f">Converting Between Degrees with Decimals and Degrees-Minutes-Seconds</div>
+            <div class="g un3" marker="un3g">Angles in Degrees and Radians and Converting Between Them</div>
+            <div class="g un3" marker="un3h">Definitions of Sine and Cosine</div>
+            <div class="g un3" marker="un3i">Unit Circle</div>
+            <div class="g un3" marker="un3j">Graphs of Sine and Cosine</div>
+            <div class="g un3" marker="un3k">Sinusoidal Applications</div>
+            <div class="g un4" marker="un4a">Definition of Imaginary and Complex Numbers</div>
+            <div class="g un4" marker="un4b">Complex Conjugates</div>
+            <div class="g un4" marker="un4c">Polynomials</div>
+            <div class="g un4" marker="un4d">Rational Equations</div>
+            <div class="g un4" marker="un4e">Optimization</div>
+            <div class="g un5" marker="un5a">Finding Answers to Trigonometric Functions with a Point or Right Triangle</div>
+            <div class="g un5" marker="un5b">Trigonometric Proofs</div>
+            <div class="g un5" marker="un5c">Solving Trigonometric Equations with or without a Calculator</div>
+            <div class="g un5" marker="un5d">Sum and Difference Identities</div>
+            <div class="g un5" marker="un5e">Double Angle Identities</div>
+            <div class="g un5" marker="un5f">Half-Angle Identities</div>
+            <div class="g un6" marker="un6a">Definition of a Conic Section</div>
+            <div class="g un6" marker="un6b">Standard and General Form</div>
+            <div class="g un6" marker="un6c">Graphing Conic Sections</div>
+            <div class="g un6" marker="un6d">Writing Equations for Conic Sections</div>
+            <div class="g un7" marker="un7a">Graphing Polar Coordinates</div>
+            <div class="g un7" marker="un7b">Converting Between Polar and Rectangular Coordinates</div>
+            <div class="g un7" marker="un7c">Graphing Polar Equations</div>
+            <div class="g un7" marker="un7d">Types of Polar Graphs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="e"></div>
+    <div class="vl w b"></div>
+    <div class="f" id="author">By Dakota Sullivan</div>
+  </div>
+  <div id="unitarrows">
+    <div id="leftarrow">
+      <svg class="arrow" width="24" height="24">
+        <path style="fill:none;stroke:#b54f31;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="m 4,8 8,8 8,-8"/>
+      </svg>
+    </div>
+    <div id="rightarrow">
+      <svg class="arrow" width="24" height="24">
+        <path style="fill:none;stroke:#b54f31;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="m 4,8 8,8 8,-8"/>
+      </svg>
+    </div>
+  </div>
+  <div id="page">
+      <div id="unit1" class="unit">
+        <!-- <div class="topic"><h1>Title</h1><img class="image" src="httpsrc" style="height: xpx" /><p>Paragraph Content</p></div> -->
+        <div class="title">Unit 1: Algebra Review</div>
+        
+        <div id="un1a" class="anchor" top="1">Point-Slope Form for a Line</div>
+        <div class="topic">
+          <h1>Point-Slope Form for a Line</h1>
+          <p>
+            The equation for a line can come in many forms, and, if you want to be lazy, you can represent it in <strong>Point-Slope Form</strong>.
+            Point-Slope Form is basically the median equation of <strong>Slope</strong> and <strong>Slope-Intercept Form</strong>.
+            The actual form is `y-y_1=m(x-x_1)`.
+            This represents the fact that the difference in two points' y values is proportional to the diference in their x values by a multiplier m.
+            This form could easily be converted into the equation to find slope by dividing both sides by `x-x_1`, making it `m=(y-y_1)/(x-x_1)`, or it can be converted to Slope Intercept form by distributing `m` and adding both sides by `y`.
+          </p>
+          For an example, let's say we were given the slope: `3/2` and a point on the line: `(6,5)` and have to find the Slope-Intercept Form of that line:
+          <table class="eqmap">
+            <tr>
+              <td>First, we fill in the information we already know:</td>
+              <td class="eq">`y-5=(3/2)(x-6)`</td>
+            </tr>
+            <tr>
+              <td>Then, we distribute `m` or the slope:</td>
+              <td class="eq">`y-5=(3/2)x-9`</td>
+            </tr>
+            <tr>
+              <td>And add `y_1` to both sides:</td>
+              <td class="eq">`y-5+5=(3/2)x-9+5`</td>
+            </tr>
+            <tr>
+              <td>And out comes our answer:</td>
+              <td class="eq">`y=(3/2)x-4`</td>
+            </tr>
+          </table>
+          Now let's say that we have two points on a line: `(7,4)` and `(3,3)` and had to find the slope of that line:
+          <table class="eqmap">
+            <tr>
+              <td>First, we fill in the information we already know:</td>
+              <td class="eq">`4-3=m(7-3)`</td>
+            </tr>
+            <tr>
+              <td>Then, we divide both sides by `(x-x_1)` to get the Slope Equation:</td>
+              <td class="eq">`m(7-3)/(7-3)=(4-3)/(7-3)`</td>
+            </tr>
+            <tr>
+              <td>Simplify it:</td>
+              <td class="eq">`m=(4-3)/(7-3)`</td>
+            </tr>
+            <tr>
+              <td>And out comes our answer:</td>
+              <td class="eq">`m=1/4`</td>
+            </tr>
+          </table>
+          <p>
+            Where would this be used?
+            This sort of math pops up in programs everywhere, including your Operating System (Windows/Mac OSX/Linux), your browser, and pretty much every single video game you have ever played.
+            To use video games as an example, a 2D platformer with a ray-gun would need to calculate the slope of the line between your avatar and your cursor to show the beam.
+            But, let's say you're not interested in computers.
+            Well, if you do any sort of construction you pretty much need to use this, and if do any sort of statistics, it will certainly pop up.
+          </p>
+        </div>
+        
+        <div id="un1b" class="anchor">Laws of Exponents and Simplifying Expressions with Exponents</div>
+        <div class="topic">
+          <h1>Laws of Exponents and Simplifying Expressions with Exponents</h1>
+          <p>
+            There is a set of laws that apply to exponents and make it possible for us to solve expressions that have exponents.
+            The laws are as follows, so don't let the number of `x`'s and `y`'s overwhelm you:
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td><strong>Law</strong></td>
+              <td><strong>Example</strong></td>
+              <td><strong>Explanation</strong></td>
+            </tr>
+            <tr>
+              <td>`x^y` where `y>0` is equal to `1` multiplied to `x` `y` times</td>
+              <td>`5^3=(1)*5*5*5`</td>
+              <td>This is the basic purpose of exponents, to add another level to multiplication the same way multiplication did to addition.</td>
+            </tr>
+            <tr>
+              <td>`x^0=1`</td>
+              <td>`1000^0=1`</td>
+              <td>When there is nothing to multiply `1` to, `1` simply remains. Or, `1/1=1` and `x/x=1`.</td>
+            </tr>
+            <tr>
+              <td>`x^y` where `y<0` is equal to `1` divided by `x` `y` times</td>
+              <td>`5^-3=1/(5*5*5)`</td>
+              <td>This is still a purpose of exponents, just applied to negative numbers.</td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                With the three above laws, when the exponent increases by 1, the value multiplies by x, when the exponent decreases by 1, the value divides by x.
+                <hr>
+              </td>
+            </tr>
+            <tr>
+              <td>`1/x^y=x^-y`</td>
+              <td>`1/x^3=x^-3`</td>
+              <td>`1/((x*x*x))=(1/(x*x*x))` or `1/((1/(x*x*x))) = (x*x*x)`.</td>
+            </tr>
+            <tr>
+              <td>`x^(1/y)=rooty x`</td>
+              <td>`x^(1/3)=root3 x`</td>
+              <td>`1/x` is the inverse of x, so in an exponent it results in the inverse: a root.</td>
+            </tr>
+            <tr>
+              <td>`x^y*x^z=x^(y+z)`</td>
+              <td>`x^3*x^1=x x x*x=x^4`</td>
+              <td>This is has the same type of reason that `x*y+x*z=x*(y+z)`, that we multiply `x` `y` times, and then `x` another `z` times, for a total of `y+z` times.</td>
+            </tr>
+            <tr>
+              <td>`x^y/x^z=x^(y-z)`</td>
+              <td>`x^3/x^4=(x x x)/(x x x x)=1/x=x^-1`</td>
+              <td>This expands out to `x^y+1/x^z`, which simplifies to `x^y+x^-z` and then to `x^(y-z)`.</td>
+            </tr>
+            <tr>
+              <td>`(x^y)^z=x^(y*z)`</td>
+              <td>`(x^2)^2=(x x)^2=x x x x=x^4`</td>
+              <td>First we multiply `x` `y` times, and then that another `z` times, for a total of `y*z`.</td>
+            </tr>
+            <tr>
+              <td>`(xy)^z=x^z*y^z`</td>
+              <td>`(xy)^4=x x x xyyyy=x^4+y^4`</td>
+              <td>Quite simply, we are distributing the exponent to each component of a multiplication expression because in the end it is all multiplied back together.</td>
+            </tr>
+            <tr>
+              <td>`(x/y)^z=x^z/y^z`</td>
+              <td>`(x/y)^4=(x x x x)/(yyyy)=x^4/y^4`</td>
+              <td>The same as previously, except some components are divided, but it is at the same level of operation because multiplication and division oppose directly.</td>
+            </tr>
+            <tr>
+              <td>`x^(y/z)=rootz x^y`</td>
+              <td>`x^(3/4)=(x^3)^(1/4)=root4 (x^3)`</td>
+              <td>This results from a conjugation of previous rules, expanding out to the root of `x^y` in the base of `z`.</td>
+            </tr>
+          </table>
+          We can use these laws to simplify exponential expressions, so let's simplify this one: `((x^4*x^-7)/x^5)^(1/5)`
+          <table class="eqmap">
+            <tr>
+              <td>First we evaluate the expression inside the parentheses:</td>
+              <td>`x^4*x^-7=x^-3=>(x^-3/x^5)^(1/5)`</td>
+            </tr>
+            <tr>
+              <td>And continue:</td>
+              <td>`x^-3/x^5=x^-8=>(x^-8)^(1/5)`</td>
+            </tr>
+            <tr>
+              <td>And use the last rule to get our answer:</td>
+              <td>`(x^-8)^(1/5)=root5 (1/x^8)`</td>
+            </tr>
+          </table>
+          <p>
+            So in just three steps we were able to turn a daunting expression like `((x^4*x^-7)/x^5)^(1/5)` into simply `root5 (1/x^8)`, which is about as complex as a simplified exponential expression can get, because of these exponential laws.
+            This is why it is being taught and taught again, so that everyone remembers it, because you might need to use it again.
+          </p>
+          <p>
+            Where would this be used?
+            Admittedly, there are not as many reasons to use exponents in life, but they are definitely more important.
+            If you have a savings account, the equation determining your profit in investment, and, if you have a loan, the equation determining your monthly/yearly, fee both use exponents.
+            Now that example is a bit cliche, as everyone uses it because it is the most thought-of case, but an even more important application exists inside our brains already.
+            The way our brains process sensory input is using logarithms, the other inverse to exponents, in the form of logarithmic scales.
+            For example, have you ever noticed that the difference between two loud sounds seems to be less than the difference between two quieter sounds?
+            I encourage you to try it on your device, just not too loud!
+          </p>
+        </div>
+        
+        <div id="un1c" class="anchor">Composition of Functions</div>
+        <div class="topic">
+          <h1>Composition of Functions</h1>
+          <p>
+            Composition of functions is compiling all unreferenced functions with their referenced functions, so there are no more function references in the end.
+            For example, let's say we have two functions: `f(x)=10+3g(x)` and `g(x)=40x`.
+            If we were to compose these two functions together, we would use `f(x)` as our base function and fill in any references within that.
+            So, `3g(x)` would turn into `3(40x)`, making `f(x)=10+3(40x)`, or simplified: `f(x)=120x+10`.
+          </p>
+          Now, for a more complicated problem, let's say we have these six functions:
+          <table class="eqmap">
+            <tr><td>`a(x)=d(x)+4-30x`</td></tr>
+            <tr><td>`b(x)=2a(x)d(x)-10`</td></tr>
+            <tr><td>`c(x)=b(x)-x*a(x)`</td></tr>
+            <tr><td>`d(x)=47x`</td></tr>
+            <tr><td>`e(x)=c(x)-50`</td></tr>
+            <tr><td>`f(x)=(x-4)*e(x)`</td></tr>
+          </table>
+          The first thing we would do is map all of the references out creating six trees of functions:
+          <svg viewBox="0 0 930 930" style="max-width: 930px; display: block;">
+            <g
+               transform="translate(0,-122.36216)"
+               id="layer1">
+              <text
+                 id="text3336"
+                 y="168.36217"
+                 x="21"
+                 style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   style="font-size:22.5px"
+                   y="168.36217"
+                   x="21"
+                   id="tspan3338">a(x)</tspan></text>
+              <text
+                 id="text3340"
+                 y="340.36218"
+                 x="21"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="340.36218"
+                   x="21"
+                   id="tspan3342">b(x)</tspan></text>
+              <text
+                 id="text3344"
+                 y="514.36218"
+                 x="26"
+                 style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   style="font-size:22.5px"
+                   y="514.36218"
+                   x="26"
+                   id="tspan3346">c(x)</tspan></text>
+              <text
+                 id="text3348"
+                 y="682.36218"
+                 x="23"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="682.36218"
+                   x="23"
+                   id="tspan3350">d(x)</tspan></text>
+              <text
+                 id="text3352"
+                 y="844.36218"
+                 x="21"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="844.36218"
+                   x="21"
+                   id="tspan3354">e(x)</tspan></text>
+              <text
+                 id="text3356"
+                 y="1015.3622"
+                 x="26"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="1015.3622"
+                   x="26"
+                   id="tspan3358">f(x)</tspan></text>
+              <path
+                 id="path4160"
+                 d="m 79,161.36216 82,1"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4162"
+                 y="171.36217"
+                 x="174"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="171.36217"
+                   x="174"
+                   id="tspan4164">d(x)</tspan></text>
+              <path
+                 id="path4166"
+                 d="m 163,290.36216 -83,44 77,26"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4168"
+                 y="297.36215"
+                 x="168"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="297.36215"
+                   x="168"
+                   id="tspan4170">a(x)</tspan></text>
+              <text
+                 id="text4172"
+                 y="372.36215"
+                 x="164"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="372.36215"
+                   x="164"
+                   id="tspan4174">d(x)</tspan></text>
+              <path
+                 id="path4176"
+                 d="m 229,287.36216 76,-1"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4178"
+                 y="299.36215"
+                 x="313"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="299.36215"
+                   x="313"
+                   id="tspan4180">d(x)</tspan></text>
+              <path
+                 id="path4182"
+                 d="m 164,468.36216 -81,40 76,31"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4184"
+                 d="m 292,509.36216 -73,29 67,34"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4186"
+                 d="m 362,507.36216 74,-2"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4188"
+                 y="479.36215"
+                 x="171"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="479.36215"
+                   x="171"
+                   id="tspan4190">a(x)</tspan></text>
+              <text
+                 id="text4192"
+                 y="554.36218"
+                 x="167"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="554.36218"
+                   x="167"
+                   id="tspan4194">b(x)</tspan></text>
+              <path
+                 id="path4196"
+                 d="m 232,470.36216 70,-1"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4198"
+                 y="481.36215"
+                 x="309"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="481.36215"
+                   x="309"
+                   id="tspan4200">d(x)</tspan></text>
+              <text
+                 id="text4202"
+                 y="515.36218"
+                 x="304"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="515.36218"
+                   x="304"
+                   id="tspan4204">a(x)</tspan></text>
+              <text
+                 id="text4206"
+                 y="584.36218"
+                 x="295"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="584.36218"
+                   x="295"
+                   id="tspan4208">d(x)</tspan></text>
+              <text
+                 id="text4210"
+                 y="516.36218"
+                 x="444"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="516.36218"
+                   x="444"
+                   id="tspan4212">d(x)</tspan></text>
+              <path
+                 id="path4214"
+                 d="m 79,835.36216 76,-21"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4182-6"
+                 d="m 291.20764,769.14632 -81,40 76,31"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4184-6"
+                 d="m 419.20764,810.14632 -73,29 67,34"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4186-8"
+                 d="m 489.20764,808.14632 74,-2"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4188-1"
+                 y="780.1463"
+                 x="298.20764"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="780.1463"
+                   x="298.20764"
+                   id="tspan4190-5">a(x)</tspan></text>
+              <text
+                 id="text4192-4"
+                 y="855.14636"
+                 x="294.20764"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="855.14636"
+                   x="294.20764"
+                   id="tspan4194-1">b(x)</tspan></text>
+              <path
+                 id="path4196-9"
+                 d="m 359.20764,771.14632 70,-1"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4198-4"
+                 y="782.1463"
+                 x="436.20764"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="782.1463"
+                   x="436.20764"
+                   id="tspan4200-3">d(x)</tspan></text>
+              <text
+                 id="text4202-7"
+                 y="816.14636"
+                 x="431.20764"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="816.14636"
+                   x="431.20764"
+                   id="tspan4204-2">a(x)</tspan></text>
+              <text
+                 id="text4206-2"
+                 y="885.14636"
+                 x="422.20764"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="885.14636"
+                   x="422.20764"
+                   id="tspan4208-0">d(x)</tspan></text>
+              <text
+                 id="text4210-0"
+                 y="817.14636"
+                 x="571.20764"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="817.14636"
+                   x="571.20764"
+                   id="tspan4212-4">d(x)</tspan></text>
+              <text
+                 id="text4312"
+                 y="819.36218"
+                 x="165"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="819.36218"
+                   x="165"
+                   id="tspan4314">c(x)</tspan></text>
+              <path
+                 id="path4316"
+                 d="m 75,1007.3622 72,-17"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text3352-3"
+                 y="992.36218"
+                 x="163.4129"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="992.36218"
+                   x="163.4129"
+                   id="tspan3354-9">e(x)</tspan></text>
+              <path
+                 id="path4214-0"
+                 d="m 221.4129,983.36216 76,-21"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4182-6-0"
+                 d="m 433.62054,917.14633 -81,39.99999 76,31"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4184-6-8"
+                 d="m 561.62054,958.14632 -73,29 67,33.99998"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4186-8-5"
+                 d="m 631.62054,956.14632 74,-2"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4188-1-6"
+                 y="928.1463"
+                 x="440.62054"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="928.1463"
+                   x="440.62054"
+                   id="tspan4190-5-2">a(x)</tspan></text>
+              <text
+                 id="text4192-4-6"
+                 y="1003.1464"
+                 x="436.62054"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="1003.1464"
+                   x="436.62054"
+                   id="tspan4194-1-3">b(x)</tspan></text>
+              <path
+                 id="path4196-9-5"
+                 d="m 501.62054,919.14633 70,-1"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <text
+                 id="text4198-4-8"
+                 y="930.1463"
+                 x="578.62054"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="930.1463"
+                   x="578.62054"
+                   id="tspan4200-3-5">d(x)</tspan></text>
+              <text
+                 id="text4202-7-4"
+                 y="964.14636"
+                 x="573.62054"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="964.14636"
+                   x="573.62054"
+                   id="tspan4204-2-6">a(x)</tspan></text>
+              <text
+                 id="text4206-2-2"
+                 y="1033.1464"
+                 x="564.62054"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="1033.1464"
+                   x="564.62054"
+                   id="tspan4208-0-7">d(x)</tspan></text>
+              <text
+                 id="text4210-0-0"
+                 y="965.14636"
+                 x="713.62054"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="965.14636"
+                   x="713.62054"
+                   id="tspan4212-4-9">d(x)</tspan></text>
+              <text
+                 id="text4312-8"
+                 y="967.36218"
+                 x="307.4129"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="967.36218"
+                   x="307.4129"
+                   id="tspan4314-1">c(x)</tspan></text>
+              <path
+                 id="path4393"
+                 d="m 70,856.36216 100,115"
+                 style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4395"
+                 d="m 75,670.36216 220,-72"
+                 style="fill:#ff0000;fill-rule:evenodd;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4397"
+                 d="m 64,522.36216 110,269"
+                 style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4399"
+                 d="m 62,360.36216 111,163"
+                 style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4401"
+                 d="m 60,183.36216 106,89"
+                 style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+            </g>
+          </svg>
+          <p>
+            In the example above, each red line shows where that function is referenced, meaning it cannot be the base function, and the only function without a red line is `f(x)`, meaning everything is going to be compiled into that function.
+            If `f(x)` referenced another function other than `e(x)`, both `f(x)` and `e(x)` would be base functions, meaning you would end up with two functions instead of just one in the end.
+            But, since we will end up with just `f(x)`, we need to look at every endpoint in the tree and compile upwards like so:
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td><strong>Step</strong></td>
+              <td><strong>Result</strong></td>
+            </tr>
+            <tr>
+              <td>`f(x)->e(x)->c(x)->a(x)->d(x)`</td>
+              <td>`d(x)=47x`</td>
+            </tr>
+            <tr>
+              <td>`f(x)->e(x)->c(x)->a(x)`</td>
+              <td>`(47x)+4-30x=>`<br>`a(x)=17x+4`</td>
+            </tr>
+            <tr>
+              <td>`f(x)->e(x)->c(x)->b(x)`</td>
+              <td>`2(17x+4)(47x)-10=>`<br>`b(x)=1598x^2+376x-10`</td>
+            </tr>
+            <tr>
+              <td>`f(x)->e(x)->c(x)`</td>
+              <td>`(1598x^2+376x-10)-x*(17x+4)=>`<br>`c(x)=1581x^2+372x-10`</td>
+            </tr>
+            <tr>
+              <td>`f(x)->e(x)`</td>
+              <td>`(1581x^2+372x-10)-50=>`<br>`e(x)=1581x^2+372x-60`</td>
+            </tr>
+            <tr>
+              <td>`f(x)`</td>
+              <td>`(x-4)*(1581x^2+372x-60)=>`<br>`f(x)=1581x^3-5952x^2-1548x+240`</td>
+            </tr>
+          </table>
+          <p>
+            Believe it or not, you use Function Composition for almost every math problem you solve or every expression you create.
+            To solve a problem, you need to follow the order of operations, and by doing so, you are following a tree up.
+            For example, anything inside parentheses is basically a function of its own, it's just not named.
+            When you are writing an expression however, you are using bits and pieces in your mathematical vocabulary to put it together like a puzzle piece, and each one of those pieces is a type of function.
+            As for career uses, it is used all the time in computers, just not always mathematically.
+            Function Composition can be compiling any set of functions, including functions with sets of computer instructions.
+            Computer programs are written with functions, but they can be recursive, that is, call themselves multiple times, so the computer has to follow its function tree from the top down, but in essence still does the same thing.
+            Sometimes, programmers will do this too, because when programs have unnessecary functions, the program gets a bit slower and larger, so for optimization, the programmer might do some of the computer's work for it.
+          </p>
+        </div>
+        
+        <div id="un1d" class="anchor">Finding Inverse Functions</div>
+        <div class="topic">
+          <h1>Finding Inverse Functions</h1>
+          <p>
+            When you graph the inverse of a function, something special happens: that function is reflected across the line `y=x`.
+            To get the inverse of a function, you need to solve for the other, or another, variable.
+            In the case of functions for graphing, we will also switch the names of `x` and `y`.
+            So let's say we had the function `y=3x+4`, to get the inverse we would need to solve `x=3y+4` for `y`.
+          </p>
+          For a more complex example, how about we invert `y=7*4^3-5^x`. Table time!
+          <table class="eqmap">
+            <tr>
+              <td>Get the actual equation we are solving for:</td>
+              <td class="eq">`7*4^3-5^y=x`</td>
+            </tr>
+            <tr>
+              <td>Simplify:</td>
+              <td class="eq">`448-5^y=x`</td>
+            </tr>
+            <tr>
+              <td>Subtract by `x` and `-5^y`</td>
+              <td class="eq">`5^y=448-x`</td>
+            </tr>
+            <tr>
+              <td>Use logarithms to isolate `y`, and we get our answer:</td>
+              <td class="eq">`y=log_5(448-x)</td>
+            </tr>
+          </table>
+          
+          <p>
+            This concept can actually be quite useful when trying to test the input variables for a certain output.
+            To use the above equation, let's say if we put in the number of members of a group we would get out a certain number of dollars, and if we wanted to get enough money to pay rent or whatever, we could invert the function and get how many members we would need.
+            You might use this for planning how many people you can buy food for in a party, but most other examples are in fully mathematical applications, usually mathematical modeling and statistics.
+          </p>
+        </div>
+        
+        <div id="un1e" class="anchor">Simplifying Square Roots and Rationalizing the Denominator</div>
+        <div class="topic">
+          <h1>Simplifying Square (and other) Roots and Rationalizing the Denominator</h1>
+          <p>
+            When simplifying an expression, any roots of any base must be removed as much as possible, and the denominator of every fraction must not contain any roots.
+            To simplify a root, the contents of that root must have a multiple that is of that root's base.
+            To clarify, `rootx ((y^x)z)` can be simplified to `y*rootx z`.
+            For a fraction, to remove any radicals, the entire fraction must be multiplied by a factor that will remove the radicals in the denominator, most likely making the numerator irrational in the process.
+          </p>
+          Let's simplify `5/root3(54x)`:
+          <table class="eqmap">
+            <tr>
+              <td>First, we have to simplify the radical:</td>
+              <td class="eq">`54=3^3*2->5/(3root3(2x))`</td>
+            </tr>
+            <tr>
+              <td>Then remove the radical from the denominator:</td>
+              <td class="eq">`(5root3(2x)^2)/6x`</td>
+            </tr>
+            <tr>
+              <td>And simplify:</td>
+              <td class="eq">`(5root3(4x^2))/6x`</td>
+            </tr>
+          </table>
+          <p>
+            Easy, only three steps!
+            This however is another one of those topics that doesn't get much use except in school, unless you are a carpenter, physicist, or pretty much anyone dealing with square roots (ie. pythagorean theorem) and fractions.
+            Although, it is still not a bad thing to learn, because it is still used all over the place.
+          </p>
+        </div>
+        
+        <div id="un1f" class="anchor">Factoring Quadratics and some Cubics</div>
+        <div class="topic">
+          <h1>Factoring Quadratics and some Cubics</h1>
+        </div>
+        
+        <div id="un1g" class="anchor">Direct and Inverse Functions</div>
+        <div class="topic">
+          <h1>Direct and Inverse Functions</h1>
+        </div>
+      </div>
+      
+      <div id="unit2" class="unit">
+        <div class="title">Unit 2: Exponents and Logarithms</div>
+        
+        <div id="un2a" class="anchor" top="1">Piecewise Functions</div>
+        <div class="topic">
+          <h1>Piecewise Functions</h1>
+        </div>
+        
+        <div id="un2b" class="anchor">Solving Exponentials by Getting the same Base</div>
+        <div class="topic">
+          <h1>Solving Exponentials by Getting the same Base</h1>
+        </div>
+        
+        <div id="un2c" class="anchor">Solving Exponentials using Logarithms</div>
+        <div class="topic">
+          <h1>Solving Exponentials using Logarithms</h1>
+        </div>
+        
+        <div id="un2d" class="anchor">The log rules: Expanding/Condensing</div>
+        <div class="topic">
+          <h1>The log rules: Expanding/Condensing</h1>
+        </div>
+        
+        <div id="un2e" class="anchor">Solving Logarithm Equations</div>
+        <div class="topic">
+          <h1>Solving Logarithm Equations</h1>
+        </div>
+        
+        <div id="un2f" class="anchor">Euler's Number and Natural Logs</div>
+        <div class="topic">
+          <h1>Euler's Number and Natural Logs</h1>
+        </div>
+        
+        <div id="un2g" class="anchor">Exponential Applications</div>
+        <div class="topic">
+          <h1>Exponential Applications</h1>
+        </div>
+      </div>
+      
+      <div id="unit3" class="unit">
+        <div class="title">Unit 3: Basic Trigonometry</div>
+        
+        <div id="un3a" class="anchor" top="1">Right Triangle Trigonometry</div>
+        <div class="topic">
+          <h1>Right Triangle Trigonometry</h1>
+        </div>
+        
+        <div id="un3b" class="anchor">Law of Sines</div>
+        <div class="topic">
+          <h1>Law of Sines</h1>
+        </div>
+        
+        <div id="un3c" class="anchor">Law of Cosines</div>
+        <div class="topic">
+          <h1>Law of Cosines</h1>
+        </div>
+        
+        <div id="un3d" class="anchor">Finding Arc Length and Area of a Sector</div>
+        <div class="topic">
+          <h1>Finding Arc Length and Area of a Sector</h1>
+        </div>
+        
+        <div id="un3e" class="anchor">Angles in Standard Position</div>
+        <div class="topic">
+          <h1>Angles in Standard Position</h1>
+        </div>
+        
+        <div id="un3f" class="anchor">Converting Between Degrees with Decimals and Degrees-Minutes-Seconds</div>
+        <div class="topic">
+          <h1>Converting Between Degrees with Decimals and Degrees-Minutes-Seconds</h1>
+        </div>
+        
+        <div id="un3g" class="anchor">Angles in Degrees and Radians and Converting Between Them</div>
+        <div class="topic">
+          <h1>Angles in Degrees and Radians and Converting Between Them</h1>
+        </div>
+        
+        <div id="un3h" class="anchor">Definitions of Cosine and Sine</div>
+        <div class="topic">
+          <h1>Definitions of Cosine and Sine</h1>
+        </div>
+        
+        <div id="un3i" class="anchor">Unit Circle</div>
+        <div class="topic">
+          <h1>Unit Circle</h1>
+        </div>
+        
+        <div id="un3j" class="anchor">Graphs of Sine and Cosine</div>
+        <div class="topic">
+          <h1>Graphs of Sine and Cosine</h1>
+        </div>
+        
+        <div id="un3k" class="anchor">Sinusoidal Applications</div>
+        <div class="topic">
+          <h1>Sinusoidal Applications</h1>
+        </div>
+      </div>
+      
+      <div id="unit4" class="unit">
+        <div class="title">Unit 4: Algebra 2 Review</div>
+        
+        <div id="un4a" class="anchor" top="1">Definition of Imaginary and Complex Numbers</div>
+        <div class="topic">
+          <h1>Definition of Imaginary and Complex Numbers</h1>
+        </div>
+        
+        <div id="un4b" class="anchor">Complex Conjugates</div>
+        <div class="topic">
+          <h1>Complex Conjugates</h1>
+        </div>
+        
+        <div id="un4c" class="anchor">Polynomials</div>
+        <div class="topic">
+          <h1>Polynomials</h1>
+        </div>
+        
+        <div id="un4d" class="anchor">Rational Equations</div>
+        <div class="topic">
+          <h1>Rational Equations</h1>
+        </div>
+        
+        <div id="un4e" class="anchor">Optimization</div>
+        <div class="topic">
+          <h1>Optimization</h1>
+        </div>
+      </div>
+      
+      <div id="unit5" class="unit">
+        <div class="title">Unit 5: More Advanced Trigonometry</div>
+        
+        <div id="un5a" class="anchor" top="1">Finding Answers to Trigonometric Functions with a Point or Right Triangle</div>
+        <div class="topic">
+          <h1>Finding Answers to Trigonometric Functions with a Point or Right Triangle</h1>
+        </div>
+        
+        <div id="un5b" class="anchor">Trigonometric Proofs</div>
+        <div class="topic">
+          <h1>Trigonometric Proofs</h1>
+        </div>
+        
+        <div id="un5c" class="anchor">Solving Trigonometric Equations with or without a Calculator</div>
+        <div class="topic">
+          <h1>Solving Trigonometric Equations with or without a Calculator</h1>
+        </div>
+        
+        <div id="un5d" class="anchor">Sum and Difference Identities</div>
+        <div class="topic">
+          <h1>Sum and Difference Identities</h1>
+        </div>
+        
+        <div id="un5e" class="anchor">Double Angle Identities</div>
+        <div class="topic">
+          <h1>Double Angle Identities</h1>
+        </div>
+        
+        <div id="un5f" class="anchor">Half-Angle Identities</div>
+        <div class="topic">
+          <h1>Half-Angle Identities</h1>
+        </div>
+      </div>
+      
+      <div id="unit6" class="unit">
+        <div class="title">Unit 6: Conic Sections</div>
+        
+        <div id="un6a" class="anchor" top="1">Definition of a Conic Section</div>
+        <div class="topic">
+          <h1>Definition of a Conic Section</h1>
+        </div>
+        
+        <div id="un6b" class="anchor">Standard and General Form</div>
+        <div class="topic">
+          <h1>Standard and General Form</h1>
+        </div>
+        
+        <div id="un6c" class="anchor">Graphing Conic Sections</div>
+        <div class="topic">
+          <h1>Graphing Conic Sections</h1>
+        </div>
+        
+        <div id="un6d" class="anchor">Writing Equations for Conic Sections</div>
+        <div class="topic">
+          <h1>Writing Equations for Conic Sections</h1>
+        </div>
+      </div>
+      
+      <div id="unit7" class="unit">
+        <div class="title">Unit 7: Polar Graphs</div>
+        
+        <div id="un7a" class="anchor" top="1">Graphing Polar Coordinates</div>
+        <div class="topic">
+          <h1>Graphing Polar Coordinates</h1>
+        </div>
+        
+        <div id="un7b" class="anchor">Converting Between Polar and Rectangular Coordinates</div>
+        <div class="topic">
+          <h1>Converting Between Polar and Rectangular Coordinates</h1>
+        </div>
+        
+        <div id="un7c" class="anchor">Graphing Polar Equations</div>
+        <div class="topic">
+          <h1>Graphing Polar Equations</h1>
+        </div>
+        
+        <div id="un7d" class="anchor">Types of Polar Graphs</div>
+        <div class="topic">
+          <h1>Types of Polar Graphs</h1>
+        </div>
+      </div>
+  </div>
+  <div id="floater"/>
+  <script>ready();</script>
+</body>
+</html>
