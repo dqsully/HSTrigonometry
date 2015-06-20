@@ -177,16 +177,6 @@
           units[i].style.transform = 'translate(-' + currentUnit * window.innerWidth + 'px)';
           t(i);
         }
-        ems = units[currentUnit].getElementsByClassName('eqmap');
-        if(units[currentUnit].offsetWidth - 34 < 930) {
-          for(var i=0; i<ems.length; i++) {
-            ems[i].style.maxWidth = units[currentUnit].offsetWidth - 34 + 'px';
-          }
-        } else {
-          for(var i=0; i<ems.length; i++) {
-            ems[i].style.maxWidth = '';
-          }
-        }
       })();
       var imgfunc = function (e) {
         var f = d('floater');
@@ -773,7 +763,7 @@
             <div class="g un1" marker="un1d">Finding Inverse Functions</div>
             <div class="g un1" marker="un1e">Simplifying Square Roots and Rationalizing the Denominator</div>
             <div class="g un1" marker="un1f">Factoring Quadratics and some Cubics</div>
-            <div class="g un1" marker="un1g">Direct and Inverse Functions</div>
+            <div class="g un1" marker="un1g">Direct and Inverse Variations</div>
             <div class="g un2" marker="un2a">Piecewise Functions</div>
             <div class="g un2" marker="un2b">Solving Exponentials by Getting the same Base</div>
             <div class="g un2" marker="un2c">Solving Exponentials using Logariths</div>
@@ -990,7 +980,7 @@
           <p>
             Where would this be used?
             Admittedly, there are not as many reasons to use exponents in life, but they are definitely more important.
-            If you have a savings account, the equation determining your profit in investment, and, if you have a loan, the equation determining your monthly/yearly, fee both use exponents.
+            If you have a savings account, the equation determining your profit in investment, and, if you have a loan, the equation determining your periodic fee, both use exponents.
             Now that example is a bit cliche, as everyone uses it because it is the most thought-of case, but an even more important application exists inside our brains already.
             The way our brains process sensory input is using logarithms, the other inverse to exponents, in the form of logarithmic scales.
             For example, have you ever noticed that the difference between two loud sounds seems to be less than the difference between two quieter sounds?
@@ -1468,7 +1458,7 @@
             </tr>
             <tr>
               <td>Use logarithms to isolate `y`, and we get our answer:</td>
-              <td class="eq">`y=log_5(448-x)</td>
+              <td class="eq">`y=log_5(448-x)`</td>
             </tr>
           </table>
           
@@ -1507,17 +1497,75 @@
             Easy, only three steps!
             This however is another one of those topics that doesn't get much use except in school, unless you are a carpenter, physicist, or pretty much anyone dealing with square roots (ie. pythagorean theorem) and fractions.
             Although, it is still not a bad thing to learn, because it is still used all over the place.
+            You might need it someday!
           </p>
         </div>
         
         <div id="un1f" class="anchor">Factoring Quadratics and some Cubics</div>
         <div class="topic">
           <h1>Factoring Quadratics and some Cubics</h1>
+          <p>
+            To quickly review, a quadratic is an expression in the form of `ax^2+bx+c`, but factoring them is really quite easy.
+            There are two ways to do it: use the 'generic' method, or use the quadratic formula.
+            The generic method works for simple cases, and if it doesn't work for your case you can use the quadratic formula instead.
+            The steps for the generic method are laid out for you below, and `f(x,y)` is the common factor of `x` and `y`:
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td><strong>Step</strong></td>
+              <td><strong>Example</strong></td>
+            </tr>
+            <tr>
+              <td>Factor out all common factors</td>
+              <td>`zax^2+zbx+zc=z*(ax^2+bx+c)`</td>
+            </tr>
+            <tr>
+              <td>Find which two numbers multiply to `ac` and add to `b`</td>
+              <td>`st=ac and s+t=b->z*(ax^2+(s+t)x+c)`</td>
+            </tr>
+            <tr>
+              <td>Factor the resultant numbers in an array</td>
+              <td>`z*(f(a,s)x+f(t,c))(f(a,t)x+f(s,c))`</td>
+            </tr>
+          </table>
+          <p>
+            This method is a bit confusing and hard to put into a formula, but if you have paper and do not have a calulator, this would be the easiest way to go.
+            With the quadratic formula, you will want a calculator, especially since it uses roots and fractions.
+            Below is an example of using the quadratic formula to solve a quadratic expression.
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td>The Quadratic Formula:</td>
+              <td>`(b+-sqrt(b^2-4ac))/(2a)`</td>
+            </tr>
+            <tr>
+              <td>Putting it into your expression:</td>
+              <td>`a(x-(b+sqrt(b^2-4ac))/(2a))(x-(b-sqrt(b^2-4ac))/(2a))`</td>
+            </tr>
+            <tr>
+              <td>To complete the factoring, you will need to distribute factors of `a` to each parenthetic group intuitively so you get the best answer possible:</td>
+              <td>`a=ts->(tx-t(b+sqrt(b^2-4ac))/(2a))(sx-s(b-sqrt(b^2-4ac))/(2a))`</td>
+            </tr>
+          </table>
+          <p>
+            For a cubic or any other higher polynomial, you will need to use the <strong>Rational Root Theorem</strong>, which explains that all rational roots must be in `+-(f(c_(x^n)))/(f(c_(x^0))` where `f(x)` returns all factors of `x`, `n` is the highest polynomial, `c` is the coefficient of its base, and `c_(x^n)!=0` and `c_(x^0)!=0`.
+            So, if we have `3x^4-2`, all rational roots must fit in `+-(1,3)/(1,2)`.
+            To find all of these roots, you can only repeat testing the expression to find inputs/roots that result in `0`, appending the root as a "parenthetic group" in the form of `(x-r)` where r is your root, and dividing the original expression by this group creating the next 'original' expression.
+            Then, once you can't find any more roots, multiply your output by your last 'original' group, and finally intuitively distribute factors of `a` to each parenthetic group you created.
+            Usually only mathematicians and statisticians actually use quadratics and cubics, but you will still need to know this to pass Unit 6, which will obviously come later on, so don't forget this!
+          </p>
         </div>
         
-        <div id="un1g" class="anchor">Direct and Inverse Functions</div>
+        <div id="un1g" class="anchor">Direct and Inverse Variations</div>
         <div class="topic">
-          <h1>Direct and Inverse Functions</h1>
+          <h1>Direct and Inverse Variations</h1>
+          <p>
+            When two variables have a relationship where both variables scale similarly, there are two ways to describe it: direct and inverse.
+            A direct relationship between two variables would follow the equation `y=kx` where `k` is a constant, so that when `y` is multiplied by `a`, `x` scales by `a` as well.
+            An inverse relationship however, would follow `y=k/x`, meaning that when `y` is multiplied by `a`, `x` scales by `1/a`, or in other words, scales inversely.
+            However, a simplified expression that contains any constant or variable that is added or is an exponent cannot be a direct or inverse relationship, because both variables do not scale exactly inverse or the same.
+            For example, neither `y=x+1`, `y=x^2`, or `y=x*z` can have a direct or inverse variation, unless `z` is a constant in the last example.
+          </p>
         </div>
       </div>
       
@@ -1527,6 +1575,229 @@
         <div id="un2a" class="anchor" top="1">Piecewise Functions</div>
         <div class="topic">
           <h1>Piecewise Functions</h1>
+          <p>
+            When graphing a function, the line does not have to always connect.
+            There is a way to create a function which runs different expressions based on conditions.
+            The syntax is really quite simple: `f(x)={(...),(sf"expression" if sf"condition"),(...)]`.
+            Just ignore the last bracket, technically it shouldn't be there but I can't remove it.
+            Below is a graph of `f(x)={(x/3+2 if x>=0 and x<6),(2x/3+4 if x>=6 and x<10.5),(6.5 if x>10.5)]`:
+          </p>
+          <svg viewBox="0 0 900 900" style="display: block; max-width: 930px;">
+            <g
+               transform="translate(0,-152.36216)"
+               id="layer1">
+              <path
+                 id="path4146"
+                 d="m 60,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4148"
+                 d="m 120,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4150"
+                 d="m 180,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4152"
+                 d="m 240,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4154"
+                 d="m 300,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4156"
+                 d="m 360,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4158"
+                 d="m 420,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4160"
+                 d="m 480,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4162"
+                 d="m 540,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4164"
+                 d="m 600,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4166"
+                 d="m 660,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4168"
+                 d="m 720,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4170"
+                 d="m 780,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4172"
+                 d="m 840,152.36216 0,900.00004"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4174"
+                 d="m 0,992.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4176"
+                 d="m 0,932.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4178"
+                 d="m 0,872.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4180"
+                 d="m 0,812.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4182"
+                 d="m 0,752.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4184"
+                 d="m 0,692.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4186"
+                 d="m 0,632.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4188"
+                 d="m 0,572.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4190"
+                 d="m 0,512.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4192"
+                 d="m 0,452.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4194"
+                 d="m 0,392.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4196"
+                 d="m 0,332.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4198"
+                 d="m 0,272.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <path
+                 id="path4200"
+                 d="m 0,212.36216 900,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+              <flowRoot
+                 style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;letter-spacing:0px;word-spacing:0px"
+                 id="flowRoot4206"
+                 xml:space="preserve"><flowRegion
+                   id="flowRegion4208"><rect
+                     y="855"
+                     x="375"
+                     height="30"
+                     width="15"
+                     id="rect4210" /></flowRegion><flowPara
+                   id="flowPara4212"></flowPara></flowRoot>    <flowRoot
+                 style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;letter-spacing:0px;word-spacing:0px"
+                 id="flowRoot4214"
+                 xml:space="preserve"><flowRegion
+                   id="flowRegion4216"><rect
+                     y="840"
+                     x="360"
+                     height="45"
+                     width="45"
+                     id="rect4218" /></flowRegion><flowPara
+                   id="flowPara4220"></flowPara></flowRoot>    <text
+                 id="text4222"
+                 y="1022.3622"
+                 x="360"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="1022.3622"
+                   x="360"
+                   id="tspan4224">5</tspan></text>
+              <text
+                 id="text4226"
+                 y="1022.3622"
+                 x="660"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="1022.3622"
+                   x="660"
+                   id="tspan4228">10</tspan></text>
+              <text
+                 id="text4230"
+                 y="692.36218"
+                 x="30"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="692.36218"
+                   x="30"
+                   id="tspan4232">5</tspan></text>
+              <text
+                 id="text4234"
+                 y="392.36218"
+                 x="30"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   y="392.36218"
+                   x="30"
+                   id="tspan4236">10</tspan></text>
+              <path
+                 id="path4238"
+                 d="M 59.999999,872.36216 420,752.36217"
+                 style="fill:none;fill-rule:evenodd;stroke:#09c305;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4240"
+                 d="M 420,512.36217 689.99999,332.36218"
+                 style="fill:none;fill-rule:evenodd;stroke:#09c305;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <path
+                 id="path4242"
+                 d="m 689.99999,602.36217 210,0"
+                 style="fill:none;fill-rule:evenodd;stroke:#09c305;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+              <circle
+                 r="15"
+                 cy="872.36218"
+                 cx="60"
+                 id="path4244"
+                 style="opacity:1;fill:#09c305;fill-opacity:1;stroke:#09c305;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+              <circle
+                 r="15"
+                 cy="752.36218"
+                 cx="420"
+                 id="path4248"
+                 style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#09c305;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+              <circle
+                 r="15"
+                 cy="512.36218"
+                 cx="420"
+                 id="path4250"
+                 style="opacity:1;fill:#09c305;fill-opacity:1;stroke:#09c305;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+              <circle
+                 r="15"
+                 cy="332.36218"
+                 cx="690"
+                 id="path4252"
+                 style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#09c305;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+              <circle
+                 r="15"
+                 cy="602.36218"
+                 cx="690"
+                 id="path4254"
+                 style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#09c305;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+            </g>
+          </svg>
         </div>
         
         <div id="un2b" class="anchor">Solving Exponentials by Getting the same Base</div>
