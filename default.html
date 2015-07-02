@@ -83,7 +83,7 @@
     function outclickpush(elem, func) {
       outclicks.push([elem, func]);
     }
-    
+
     var units;
     var currentUnit;
     var jumpto, jumpcont;
@@ -187,13 +187,12 @@
         f.style.width = b.width + 'px';
         f.style.height = b.height + 'px';
         f.style.display = 'block';
-        f.appendChild(document.cloneNode(e.target));
+        if(f.firstChild) f.removeChild(f.firstChild);
+        f.appendChild(e.target.cloneNode(true));
         e.target.style.visibility = 'hidden';
         bg.style.display = 'block';
         f.className = 'moving';
         document.body.style.overflow = 'hidden';
-        document.body.style.marginRight = scrollwidth + 'px';
-        d('nav').children[5].style.right = scrollwidth + 20 + 'px';
         setTimeout(function() {
           var t = performance.now();
           bg.style.opacity = '1';
@@ -257,7 +256,7 @@
         d('rightarrow').className = '';
       });
     }
-    
+
     function toUnit(n) {
       if(n >= units.length || n < 0) return;
       docCookies.setItem('unit', n, Infinity);
@@ -300,7 +299,7 @@
     function navh() {
       return d('nav').offsetHeight + 5;
     }
-    
+
     function t(i) {
       setTimeout(function() {
         units[i].style.transition = '';
@@ -503,6 +502,10 @@
     }
     #floater.moving {
       transition: top .6s ease, left .6s ease, width .6s ease, height .6s ease;
+    }
+    #floater > * {
+      width: 100%;
+      hegith: 100%
     }
     .eq {
       width: 33%;
@@ -716,7 +719,7 @@
         right: 0px;
       }
     }
-    
+
     #jumpcont.un1 .g.un1 {
       display: block;
     }
@@ -767,7 +770,7 @@
             <div class="g un2" marker="un2a">Piecewise Functions</div>
             <div class="g un2" marker="un2b">Solving Exponentials by Getting the same Base</div>
             <div class="g un2" marker="un2c">Solving Exponentials using Logariths</div>
-            <div class="g un2" marker="un2d">The Log Rules: Expanding/Condensing</div>
+            <div class="g un2" marker="un2d">The Logarithm Rules: Expanding/Condensing</div>
             <div class="g un2" marker="un2e">Solving Logarithm Equations</div>
             <div class="g un2" marker="un2f">Euler's Number and Natural Logs</div>
             <div class="g un2" marker="un2g">Exponential Applications</div>
@@ -825,7 +828,7 @@
       <div id="unit1" class="unit">
         <!-- <div class="topic"><h1>Title</h1><img class="image" src="httpsrc" style="height: xpx" /><p>Paragraph Content</p></div> -->
         <div class="title">Unit 1: Algebra Review</div>
-        
+
         <div id="un1a" class="anchor" top="1">Point-Slope Form for a Line</div>
         <div class="topic">
           <h1>Point-Slope Form for a Line</h1>
@@ -882,7 +885,7 @@
             Well, if you do any sort of construction you pretty much need to use this, and if do any sort of statistics, it will certainly pop up.
           </p>
         </div>
-        
+
         <div id="un1b" class="anchor">Laws of Exponents and Simplifying Expressions with Exponents</div>
         <div class="topic">
           <h1>Laws of Exponents and Simplifying Expressions with Exponents</h1>
@@ -987,7 +990,7 @@
             I encourage you to try it on your device, just not too loud!
           </p>
         </div>
-        
+
         <div id="un1c" class="anchor">Composition of Functions</div>
         <div class="topic">
           <h1>Composition of Functions</h1>
@@ -1432,7 +1435,7 @@
             Sometimes, programmers will do this too, because when programs have unnessecary functions, the program gets a bit slower and larger, so for optimization, the programmer might do some of the computer's work for it.
           </p>
         </div>
-        
+
         <div id="un1d" class="anchor">Finding Inverse Functions</div>
         <div class="topic">
           <h1>Finding Inverse Functions</h1>
@@ -1461,14 +1464,14 @@
               <td class="eq">`y=log_5(448-x)`</td>
             </tr>
           </table>
-          
+
           <p>
             This concept can actually be quite useful when trying to test the input variables for a certain output.
             To use the above equation, let's say if we put in the number of members of a group we would get out a certain number of dollars, and if we wanted to get enough money to pay rent or whatever, we could invert the function and get how many members we would need.
             You might use this for planning how many people you can buy food for in a party, but most other examples are in fully mathematical applications, usually mathematical modeling and statistics.
           </p>
         </div>
-        
+
         <div id="un1e" class="anchor">Simplifying Square Roots and Rationalizing the Denominator</div>
         <div class="topic">
           <h1>Simplifying Square (and other) Roots and Rationalizing the Denominator</h1>
@@ -1500,7 +1503,7 @@
             You might need it someday!
           </p>
         </div>
-        
+
         <div id="un1f" class="anchor">Factoring Quadratics and some Cubics</div>
         <div class="topic">
           <h1>Factoring Quadratics and some Cubics</h1>
@@ -1555,7 +1558,7 @@
             Usually only mathematicians and statisticians actually use quadratics and cubics, but you will still need to know this to pass Unit 6, which will obviously come later on, so don't forget this!
           </p>
         </div>
-        
+
         <div id="un1g" class="anchor">Direct and Inverse Variations</div>
         <div class="topic">
           <h1>Direct and Inverse Variations</h1>
@@ -1568,10 +1571,10 @@
           </p>
         </div>
       </div>
-      
+
       <div id="unit2" class="unit">
         <div class="title">Unit 2: Exponents and Logarithms</div>
-        
+
         <div id="un2a" class="anchor" top="1">Piecewise Functions</div>
         <div class="topic">
           <h1>Piecewise Functions</h1>
@@ -1585,7 +1588,7 @@
           <svg viewBox="0 0 900 900" style="display: block; max-width: 930px;">
             <g
                transform="translate(0,-152.36216)"
-               id="layer1">
+               id="layer2">
               <path
                  id="path4146"
                  d="m 60,152.36216 0,900.00004"
@@ -1799,209 +1802,636 @@
             </g>
           </svg>
         </div>
-        
+
         <div id="un2b" class="anchor">Solving Exponentials by Getting the same Base</div>
         <div class="topic">
           <h1>Solving Exponentials by Getting the same Base</h1>
+          <p>
+            When all parts of an expression use the same base, you can remove the common base of the exponent, leaving the exponent itself.
+            For example: `2^(x-1)=2^9=>x-1=9=>x=8`.
+            This can be really useful for solving exponential expressions, but what happens if the equation was `2^(x-1)=4^8`?
+            The easiest way to simplify these expressions is to simplify the base and then remove it, so that the bases are as same as they can get.
+            So, to answer my own question, `4=2^(1+1)->4^8=2^(8+1)->2^(x-1)=4^8=2^9=>x-1=9=>x=8`.
+            Really simple, and useful usually only in modeling, whether that be statistical or physical.
+          </p>
         </div>
-        
+
         <div id="un2c" class="anchor">Solving Exponentials using Logarithms</div>
         <div class="topic">
           <h1>Solving Exponentials using Logarithms</h1>
+          <p>
+            To solve an exponential equation where it is not possible to use the previous method, there is another way: using logarithms.
+            Now I have already partially covered this in the previous unit, but like the previous topic, is really simple, and only useful in modeling situations.
+            First though, the equation needs to be simplified to `b^x=a` is any expression, so that we can use the formula `b^x=a=>x=log_b(a)`.
+            To use this in an example, `(54-3k)^x=7=>x=log_(54-3k)(7)`.
+            This means most likely you will be forced to use a calculator to finish the equation, but what if your calculator cannot handle logarithms of an arbitraty base?
+            There is another formula you could use called the <strong>Change of Base Formula</strong>: `log_x(y)=ln(y)/ln(x)`, which would our example solveable on a calculator as `x=ln(7)/ln(54-3k)`.
+          </p>
         </div>
-        
-        <div id="un2d" class="anchor">The log rules: Expanding/Condensing</div>
+
+        <div id="un2d" class="anchor">The Logarithm Rules: Expanding/Condensing</div>
         <div class="topic">
-          <h1>The log rules: Expanding/Condensing</h1>
+          <h1>The Logarithm Rules: Expanding/Condensing</h1>
+          <p>
+            Just like there are a bunch of laws for simplifying exponents, there are also laws for simplifying logarithms.
+            These rules can be used to condense and expand logarithms.
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td><strong>Rule</strong></td>
+              <td><strong>Explanation</strong></td>
+            </tr>
+            <tr>
+              <td>`log_b(mn)=log_b(m)+log_b(n)`</td>
+              <td>Multiplication inside a logarithm is equivalent to addition outside.</td>
+            </tr>
+            <tr>
+              <td>`log_b(m/n)=log_b(m)-log_b(n)`</td>
+              <td>Division inside a logarithm is equivalent to subtraction outside.</td>
+            </tr>
+            <tr>
+              <td>`log_b(m^n)=n*log_b(m)`</td>
+              <td>An exponent global to everything inside the logarithm is equivalent to a coefficient of the logarithm.</td>
+            </tr>
+          </table>
+          For an example, let's simplify `log_7(x^4)-log_7(8)`:
+          <table class="eqmap">
+            <tr>
+              <td>Remove the exponent (solve inside parentheses):</td>
+              <td class="eq">`4log_7(x)-log_7(8)`</td>
+            </tr>
+            <tr>
+              <td>Condense the logarithms:</td>
+              <td class="eq">`4log_7(x/8)`</td>
+            </tr>
+            <p>
+              Simple!
+              Although I only made the example for this topic which is pretty simple anyway
+              Trigonometry is really a lot about modeling (and review at first), which is truly what math is about: modeling the world in a simplified language, so with these more advanced concepts, you are really only going to use them in jobs like engineering, programming, mathematics, teaching...
+              But in all honesty, if you do not intend to ever use the conecpts in this class, then why are you taking it?
+            </p>
+          </table>
         </div>
-        
+
         <div id="un2e" class="anchor">Solving Logarithm Equations</div>
         <div class="topic">
           <h1>Solving Logarithm Equations</h1>
+          <p>
+            Just like we used logarithms to solve exponential equations, we can use exponents to solve logarithmic equations.
+            We can simply reverse the formula to solve for logarithms: `log_b(a)=x=>b^x=a`, so `log_x(16)=4=>x^4=16=>x=4`.
+            Or, let's say we solve `log_5(x)-54=y/3` for `x`:
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td>The first goal is isolating the logarithm:</td>
+              <td class="eq">`log_5(x)=y/3+54`</td>
+            </tr>
+            <tr>
+              <td>Then we can replace it with an exponent:</td>
+              <td class="eq">`5^(y/3+54)=x`</td>
+            </tr>
+            <tr>
+              <td>And finally simplify it using exponent rules:</td>
+              <td class="eq">`x=5^y*55.5112E36`</td>
+            </tr>
+          </table>
+          <p>
+            Again, a few easy steps.
+            Truthfully, don't know when anyone would use this outside of school unless they are a mathematician or a skilled computer scientist, but of course, you are in this class so you are using it now anyway.
+            The biggest reason a computer scientist would solve logarithmic equations would be for cryptography or compression.
+          </p>
         </div>
-        
+
         <div id="un2f" class="anchor">Euler's Number and Natural Logs</div>
         <div class="topic">
           <h1>Euler's Number and Natural Logs</h1>
+          <p>
+            This is another topic that usually only mathematicians and computer scientists use.
+            In fact, my resource for this topic is directly from the Centre for Education in Mathematics and Computing courseware.
+            Anyway, Euler's number is another number like `pi` where it describes a relation between two concepts, and pops up in many places, and it is even irrational.
+            The number is usually represented by the constant `e`, and can be representedby the equation `y=(x+1/x)^x`, and increases in precision the greater x gets.
+            The Natural Logarithm is just a regular logarithm with base `e`, so `ln(x)=log_e(x)`.
+          </p>
+          <p>
+            There is actually a purpose to `e`: it
+          </p>
         </div>
-        
+
         <div id="un2g" class="anchor">Exponential Applications</div>
         <div class="topic">
           <h1>Exponential Applications</h1>
+          <p>
+            Exponents are used to help model something, compute something, or solve something.
+            An example of exponential modeling would be predicting population growth over period of time, because population grows exponentially.
+            Or it could also be used to calculate interest, another exponential function.
+            In computing, it may be used for anything from cryptography to computer graphics.
+            And, because it is a mathematical concept, of course, mathematicians use exponents to solve puzzles and prove theories.
+            Most jobs will require you to use some form of exponent, even if you work in a photocopying business, if you need to tile multiple images on the same page, you are using exponents to calculate how many images you can fit on the page.
+          </p>
         </div>
       </div>
-      
+
       <div id="unit3" class="unit">
         <div class="title">Unit 3: Basic Trigonometry</div>
-        
+
         <div id="un3a" class="anchor" top="1">Right Triangle Trigonometry</div>
         <div class="topic">
           <h1>Right Triangle Trigonometry</h1>
+          <p>
+            I'm sure you already know this, and probably remember "soh cah toa," but if you don't, here it is again.
+            The phrase "soh cah toa" refers to the relationships of the three basic trigonometric functions to sides of a right triangle.
+            "soh": `sin(theta)=(sf"opposite")/(sf"hypotenuse")`, "cah": `cos(theta)=(sf"adjacent")/(sf"hypotenuse")`, and "toa": `tan(theta)=(sf"opposite")/(sf"adjacent")`.
+            In these expressions, Theta is an angle on a right triangle that does not measure to `90^@`, the hypotenuse is the hypotenuse of that triangle, adjacent is the leg of the triangle that touches the angle, and opposite is the leg of the triangle that does not.
+            <svg viewBox="0 0 528.41319 331.58352" style="display: block; max-width: 930px;">
+              <g
+                 transform="translate(-58.478636,-138.28307)"
+                 id="layer1">
+                <path
+                   id="rect4136"
+                   d="m 60,443.79079 504.28571,-302.85715 0,302.85715 -504.28571,0"
+                   style="opacity:1;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.99215686" />
+                <path
+                   d="M 148.24851,390.60689 A 103.03556,103.03556 0 0 1 163.03549,443.669"
+                   id="path4141"
+                   style="opacity:1;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.99215686" />
+                <text
+                   id="text4147"
+                   y="421.64792"
+                   x="167.85715"
+                   style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     y="421.64792"
+                     x="167.85715"
+                     id="tspan4149">θ</tspan></text>
+                <text
+                   transform="matrix(0.85720939,-0.51496802,0.51496802,0.85720939,0,0)"
+                   x="46.763248"
+                   y="404.55444"
+                   id="text4151"
+                   style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     y="404.55444"
+                     x="46.763248"
+                     id="tspan4153">Hypotenuse</tspan></text>
+                <text
+                   transform="matrix(0,1,-1,0,0,0)"
+                   id="text4158"
+                   y="-570.19263"
+                   x="235.71103"
+                   style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     y="-570.19263"
+                     x="235.71103"
+                     id="tspan4160">Opposite</tspan></text>
+                <text
+                   id="text4162"
+                   y="465.21936"
+                   x="277.14285"
+                   style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     y="465.21936"
+                     x="277.14285"
+                     id="tspan4164">Adjacent</tspan></text>
+                <rect
+                   y="409.50507"
+                   x="530"
+                   height="34.285709"
+                   width="34.285709"
+                   id="rect4166"
+                   style="opacity:1;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.99215686" />
+              </g>
+            </svg>
+            <p>
+              With each trigonometric function, there is always an inverse.
+              That inverse may be expressed in three different ways.
+              The most common is like `sin^-1(theta)`, which can be confusing because it does not mean `sin(1/theta)`, although `sin^2(theta)=(sin(theta))^2`.
+              The biggest reason people can still understand the difference between `1/sin(theta)` and `sin^-1(theta)` is that each trigonometric function has a multiplicative inverse like `1/sin(theta)=csc(theta)`, so most people will use that inverse specifically.
+              There are more less confusing ways to express other inverse however, like `arcsin(theta)`, which mean the same as `sin^-1(theta)`, but mathematicians decided to add the 'arc' prefix to make it less confusing.
+            </p>
+          </p>
         </div>
-        
+
         <div id="un3b" class="anchor">Law of Sines</div>
         <div class="topic">
           <h1>Law of Sines</h1>
+          <p>
+            On a triangle, each angle represents the proportion of a side to its adjacent sides.
+            That side opposes the respective angle, and they will both have similar names, like angle 'B' and side 'b'.
+            The law of sines describes how these proportions work: `a/sin(A)=b/sin(B)=c/sin(C)`, and can be converted to a reciprocal: `sin(A)/a=sin(B)/b=sin(C)/c`.
+            To apply this to a real triangle, let's say we have `a=20`, `b=24`, and `B=30^@`.
+            If we plug this into the equation, we get `sin(A)/20=sin(30)/24`, which can be simplified into `A=arcsin((20sin(30))/24)`.
+            Therefore, we can get any side of a triangle if we have another side/angle pair and the angle opposite to the side we are calculating, or we can do the same with an angle.
+          </p>
         </div>
-        
+
         <div id="un3c" class="anchor">Law of Cosines</div>
         <div class="topic">
           <h1>Law of Cosines</h1>
+          <p>
+            This is another law used for solving any triangle when given three inputs.
+            The law of cosines in its raw form is `c^2=a^2+b^2-2abcos(theta)`, but there is a different form for each of three different applications.
+          </p>
+          <svg viewBox="0 0 267.74671 700.81003" style="max-width: 465px; float:right; width: 50%">
+            <g
+               transform="translate(-86.737778,-47.959917)"
+               id="layer1">
+              <g
+                 id="g4167">
+                <path
+                   style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   d="M 87.857143,248.07649 232.14286,48.790775 353.57143,203.79078 Z"
+                   id="path4136" />
+                <path
+                   id="path4147"
+                   d="M 87.857143,248.07649 232.14286,48.790775 353.57143,203.79078 Z"
+                   style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="225.7691"
+                   y="240.19955"
+                   id="text4151"><tspan
+                     id="tspan4153"
+                     x="225.7691"
+                     y="240.19955"
+                     style="font-size:15px">?</tspan></text>
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="149.50258"
+                   y="137.66907"
+                   id="text4155"><tspan
+                     id="tspan4157"
+                     x="149.50258"
+                     y="137.66907">b</tspan></text>
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="299.51022"
+                   y="119.48633"
+                   id="text4159"><tspan
+                     id="tspan4161"
+                     x="299.51022"
+                     y="119.48633">a</tspan></text>
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="227.78938"
+                   y="68.978706"
+                   id="text4163"><tspan
+                     id="tspan4165"
+                     x="227.78938"
+                     y="68.978706">θ</tspan></text>
+              </g>
+              <g
+                 transform="translate(0,250)"
+                 id="g4179">
+                <path
+                   id="path4181"
+                   d="M 87.857143,248.07649 232.14286,48.790775 353.57143,203.79078 Z"
+                   style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <path
+                   style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   d="M 87.857143,248.07649 232.14286,48.790775 353.57143,203.79078 Z"
+                   id="path4183" />
+                <text
+                   id="text4185"
+                   y="240.19955"
+                   x="225.7691"
+                   style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     style="font-size:15px"
+                     y="240.19955"
+                     x="225.7691"
+                     id="tspan4187">c</tspan></text>
+                <text
+                   id="text4189"
+                   y="137.66907"
+                   x="149.50258"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     y="137.66907"
+                     x="149.50258"
+                     id="tspan4191">b</tspan></text>
+                <text
+                   id="text4193"
+                   y="119.48633"
+                   x="299.51022"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     y="119.48633"
+                     x="299.51022"
+                     id="tspan4195">a</tspan></text>
+                <text
+                   id="text4197"
+                   y="68.978706"
+                   x="227.78938"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   xml:space="preserve"><tspan
+                     y="68.978706"
+                     x="227.78938"
+                     id="tspan4199">?</tspan></text>
+              </g>
+              <g
+                 id="g4201"
+                 transform="translate(0,500)">
+                <path
+                   style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   d="M 87.857143,248.07649 232.14286,48.790775 353.57143,203.79078 Z"
+                   id="path4203" />
+                <path
+                   id="path4205"
+                   d="M 87.857143,248.07649 232.14286,48.790775 353.57143,203.79078 Z"
+                   style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="225.7691"
+                   y="240.19955"
+                   id="text4207"><tspan
+                     id="tspan4209"
+                     x="225.7691"
+                     y="240.19955"
+                     style="font-size:15px">c</tspan></text>
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="149.50258"
+                   y="137.66907"
+                   id="text4211"><tspan
+                     id="tspan4213"
+                     x="149.50258"
+                     y="137.66907">b</tspan></text>
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="299.51022"
+                   y="119.48633"
+                   id="text4215"><tspan
+                     id="tspan4217"
+                     x="299.51022"
+                     y="119.48633">?</tspan></text>
+                <text
+                   xml:space="preserve"
+                   style="font-style:normal;font-weight:normal;font-size:15px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                   x="227.78938"
+                   y="68.978706"
+                   id="text4219"><tspan
+                     id="tspan4221"
+                     x="227.78938"
+                     y="68.978706">θ</tspan></text>
+              </g>
+            </g>
+          </svg>
+          <table class="eqmap" style="width: 50%">
+            <tr>
+              <td>The third side of a triangle if two sides and the angle between them is known:</td>
+              <td>`c=sqrt(a^2+b^2-2abcos(theta))`</td>
+            </tr>
+            <tr>
+              <td>The angles of a triangle if all three sides are known:</td>
+              <td>`theta=arccos((a^2+b^2-c^2)/(2ab))`</td>
+            </tr>
+            <tr>
+              <td>The third side of a triangle if two sides and the angle opposite one of them is known:</td>
+              <td>`a=bcos(theta)+-sqrt(c^2-b^2sin^2(theta))`</td>
+            </tr>
+          </table>
         </div>
-        
+
         <div id="un3d" class="anchor">Finding Arc Length and Area of a Sector</div>
         <div class="topic">
           <h1>Finding Arc Length and Area of a Sector</h1>
+          <p>
+            This topic is even easier than the previous ones.
+            A circle looks exactly the same no matter how much it is rotated around its center, so we can use this to calculate portions of a circle.
+            Let's start with an arc: what is the length of an arc with a radius of `5` and a subtended angle (angle of arc) of `33^@`:
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td>First we calculate the circumference:</td>
+              <td class="eq">`c=2rpi=>10pi`</td>
+            </tr>
+            <tr>
+              <td>Then calculate the portion of the circumference that arc inhabits:</td>
+              <td class="eq">`p=33^@/360^@`</td>
+            </tr>
+            <tr>
+              <td>Then get the portion of the circumference the arc inhabits:</td>
+              <td class="eq">`s=c*p=>10pi11/120=>11/12pi`</td>
+            </tr>
+          </table>
+          <p>
+            Next, let's look at solving for the area of a sector, or basically a piece of the circular pie.
+            We'll use the same parameters for this example:
+          </p>
+          <table class="eqmap">
+            <tr>
+              <td>First we calulate the area (instead of the circumference):</td>
+              <td class="eq">`a=r^2pi=>25pi`</td>
+            </tr>
+            <tr>
+              <td>Then calculate the portion of the area that the sector inhabits:</td>
+              <td class="eq">`p=33^@/360^@`</td>
+            </tr>
+            <tr>
+              <td>Then get the portion of the area the sector inhabits:</td>
+              <td class="eq">`s=a*p=>25pi11/120=>55/15pi`</td>
+            </tr>
+          </table>
         </div>
-        
+
         <div id="un3e" class="anchor">Angles in Standard Position</div>
         <div class="topic">
           <h1>Angles in Standard Position</h1>
+          <p>
+            An angle is the measure of the rotational difference between two intersecting lines.
+            When using angles to reference a point on the circumference of a circle, we can easily draw a line from that point to the center of that circle, but where is the other line?
+            This other line is drawn from the center of the circle in the direction of positive `x`.
+            Also, when referencing one of these points, a positive number of degrees means measuring counter-clockwise rotation, and negative appropriately clockwise.
+            So, the angle `120^@` is the same as `-240^@`.
+            Angles can also be classified into quadrants, to where when the positive counterpart of an angle is within `1/4*360`, it is in the first quadrant, `2/4*360 and not 1/4*360` the second quadrant, and so on.
+          </p>
         </div>
-        
+
         <div id="un3f" class="anchor">Converting Between Degrees with Decimals and Degrees-Minutes-Seconds</div>
         <div class="topic">
           <h1>Converting Between Degrees with Decimals and Degrees-Minutes-Seconds</h1>
+          <p>
+            Just like hours, degrees can be divided up into minutes and seconds.
+            Before we go too in depth, you must know both functions I will be using: modulo and floor.
+            Modulo is basically the remainder of a division operation, so `(6)mod(4)=2`.
+            Floor just gets the number without any decimal points, and it looks like this: `bbb"floor"(x)=floor(x)`.
+          </p>
+          <p>
+            To calculate from degrees with decimals, we need to do three different calculations because the degrees-minutes-seconds system is three different numbers.
+            The variables I will be using here are `w` for Degrees with Decimals, `d` for Degrees, `m` for Minutes, and `s` for Seconds: `d=floor(w)`, `m=floor((w)mod(1)*60)`, `s=(w)mod(1/60)*360`.
+            For the first equation, we have to get rid of the decimals because we are using the other two numbers to cover them.
+            For the second, we need to get the decimals ("`(w)mod(1)`") and put them in a base of `60` ("`*6`").
+            And last, for the seconds, we need the decimals of the minutes, or the sixtieths ("`(w)mod(1/60)`"), and then put them in a base of `60`, but they are already in a base of `1/60`, so we need to multiply them by `60` twice.
+          </p>
+          <p>
+            The easier part is calculating to degrees with decimals, I really shouldn't have a paragraph just to explain it: `w=d+60m+360s`.
+          </p>
         </div>
-        
+
         <div id="un3g" class="anchor">Angles in Degrees and Radians and Converting Between Them</div>
         <div class="topic">
           <h1>Angles in Degrees and Radians and Converting Between Them</h1>
+          <p>
+            This too should not deserve a paragraph of its own because of its simplicity.
+            Basically, there are `2pi` radians in a circle, and `360^@` in a circle, so `2pi=360^2`.
+            Solving for each we get `1pi=theta^@/180pi` and `1^@=180(theta)/pi`.
+            So "3 7/8pi" is equal to `180(3 7/8pi)/pi=>697.5^@`.
+          </p>
         </div>
-        
+
         <div id="un3h" class="anchor">Definitions of Cosine and Sine</div>
         <div class="topic">
           <h1>Definitions of Cosine and Sine</h1>
+          <p>
+            Cosine and Sine are the functions that take a point on a circle and translate that into a value between `-1` and `1`.
+            Cosine gets the `x` coordinate, and Sine gets the `y` coordinate.
+            It's really just that simple.
+            Better yet, here is an <a href="https://commons.wikimedia.org/wiki/File:Circle_cos_sin.gif">animation by LucasVB</a>:
+          </p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Circle_cos_sin.gif" class="image">
         </div>
-        
+
         <div id="un3i" class="anchor">Unit Circle</div>
         <div class="topic">
           <h1>Unit Circle</h1>
+          <p>
+            The Unit Circle is just a circle with a radius of 1, so it is the simplest circle to use with trigonometric functions.
+            This also means that we don't have to scale the results of the trigonometric functions because they are already scaled correctly.
+            The most important part about the unit circle is when the pythagorean theorem is applied.
+            If we apply `x^2+y^2=h^2`, because the hypotenuse is `1` and `1^2=1`, `cos^2(theta)+sin^2(theta)=1`.
+          </p>
         </div>
-        
+
         <div id="un3j" class="anchor">Graphs of Sine and Cosine</div>
         <div class="topic">
           <h1>Graphs of Sine and Cosine</h1>
         </div>
-        
+
         <div id="un3k" class="anchor">Sinusoidal Applications</div>
         <div class="topic">
           <h1>Sinusoidal Applications</h1>
         </div>
       </div>
-      
+
       <div id="unit4" class="unit">
         <div class="title">Unit 4: Algebra 2 Review</div>
-        
+
         <div id="un4a" class="anchor" top="1">Definition of Imaginary and Complex Numbers</div>
         <div class="topic">
           <h1>Definition of Imaginary and Complex Numbers</h1>
         </div>
-        
+
         <div id="un4b" class="anchor">Complex Conjugates</div>
         <div class="topic">
           <h1>Complex Conjugates</h1>
         </div>
-        
+
         <div id="un4c" class="anchor">Polynomials</div>
         <div class="topic">
           <h1>Polynomials</h1>
         </div>
-        
+
         <div id="un4d" class="anchor">Rational Equations</div>
         <div class="topic">
           <h1>Rational Equations</h1>
         </div>
-        
+
         <div id="un4e" class="anchor">Optimization</div>
         <div class="topic">
           <h1>Optimization</h1>
         </div>
       </div>
-      
+
       <div id="unit5" class="unit">
         <div class="title">Unit 5: More Advanced Trigonometry</div>
-        
+
         <div id="un5a" class="anchor" top="1">Finding Answers to Trigonometric Functions with a Point or Right Triangle</div>
         <div class="topic">
           <h1>Finding Answers to Trigonometric Functions with a Point or Right Triangle</h1>
         </div>
-        
+
         <div id="un5b" class="anchor">Trigonometric Proofs</div>
         <div class="topic">
           <h1>Trigonometric Proofs</h1>
         </div>
-        
+
         <div id="un5c" class="anchor">Solving Trigonometric Equations with or without a Calculator</div>
         <div class="topic">
           <h1>Solving Trigonometric Equations with or without a Calculator</h1>
         </div>
-        
+
         <div id="un5d" class="anchor">Sum and Difference Identities</div>
         <div class="topic">
           <h1>Sum and Difference Identities</h1>
         </div>
-        
+
         <div id="un5e" class="anchor">Double Angle Identities</div>
         <div class="topic">
           <h1>Double Angle Identities</h1>
         </div>
-        
+
         <div id="un5f" class="anchor">Half-Angle Identities</div>
         <div class="topic">
           <h1>Half-Angle Identities</h1>
         </div>
       </div>
-      
+
       <div id="unit6" class="unit">
         <div class="title">Unit 6: Conic Sections</div>
-        
+
         <div id="un6a" class="anchor" top="1">Definition of a Conic Section</div>
         <div class="topic">
           <h1>Definition of a Conic Section</h1>
         </div>
-        
+
         <div id="un6b" class="anchor">Standard and General Form</div>
         <div class="topic">
           <h1>Standard and General Form</h1>
         </div>
-        
+
         <div id="un6c" class="anchor">Graphing Conic Sections</div>
         <div class="topic">
           <h1>Graphing Conic Sections</h1>
         </div>
-        
+
         <div id="un6d" class="anchor">Writing Equations for Conic Sections</div>
         <div class="topic">
           <h1>Writing Equations for Conic Sections</h1>
         </div>
       </div>
-      
+
       <div id="unit7" class="unit">
         <div class="title">Unit 7: Polar Graphs</div>
-        
+
         <div id="un7a" class="anchor" top="1">Graphing Polar Coordinates</div>
         <div class="topic">
           <h1>Graphing Polar Coordinates</h1>
         </div>
-        
+
         <div id="un7b" class="anchor">Converting Between Polar and Rectangular Coordinates</div>
         <div class="topic">
           <h1>Converting Between Polar and Rectangular Coordinates</h1>
         </div>
-        
+
         <div id="un7c" class="anchor">Graphing Polar Equations</div>
         <div class="topic">
           <h1>Graphing Polar Equations</h1>
         </div>
-        
+
         <div id="un7d" class="anchor">Types of Polar Graphs</div>
         <div class="topic">
           <h1>Types of Polar Graphs</h1>
         </div>
       </div>
   </div>
-  <div id="floater"/>
+  <div id="floater"></div>
   <script>ready();</script>
 </body>
 </html>
