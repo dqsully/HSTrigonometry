@@ -1,2 +1,3 @@
 pushall.bat
-*.svg
+*.svg!bullet.svg
+.sln
