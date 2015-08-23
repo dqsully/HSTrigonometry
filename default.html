@@ -231,9 +231,7 @@
       };
       var imgs = document.getElementsByClassName('image');
       for (var i = 0; i < imgs.length; i++) {
-        if (imgs[i].parentNode.className == 'topic') {
-          imgs[i].onclick = imgfunc;
-        }
+        imgs[i].onclick = imgfunc;
       }
       d('leftarrow').addEventListener('click', function () {
         toUnit(currentUnit - 1);
@@ -466,6 +464,9 @@
 
     h1 {
       text-align: center;
+      color: #b54f31;
+    }
+    h2 {
       color: #b54f31;
     }
 
@@ -861,7 +862,7 @@
             <div class="g un1" marker="un1b">Laws of Exponents and Simplifying Expressions with Exponents</div>
             <div class="g un1" marker="un1c">Composition of Functions</div>
             <div class="g un1" marker="un1d">Finding Inverse Functions</div>
-            <div class="g un1" marker="un1e">Simplifying Square Roots and Rationalizing the Denominator</div>
+            <div class="g un1" marker="un1e">Simplifying Square (and other) Roots and Rationalizing the Denominator</div>
             <div class="g un1" marker="un1f">Factoring Quadratics and some Cubics</div>
             <div class="g un1" marker="un1g">Direct and Inverse Variations</div>
             <div class="g un1" marker="un1h">Uses for Algebra</div>
@@ -893,11 +894,8 @@
             <div class="g un4" marker="un4f">Uses for more Algebra</div>
             <div class="g un4" marker="un5r">Unit Review</div>
             <div class="g un5" marker="un5a">Finding Answers to Trigonometric Functions with a Point or Right Triangle</div>
-            <div class="g un5" marker="un5b">Trigonometric Proofs</div>
-            <div class="g un5" marker="un5c">Solving Trigonometric Equations with or without a Calculator</div>
-            <div class="g un5" marker="un5d">Sum and Difference Identities</div>
-            <div class="g un5" marker="un5e">Double Angle Identities</div>
-            <div class="g un5" marker="un5f">Half-Angle Identities</div>
+            <div class="g un5" marker="un5b">Trigonometric Proofs and Identities</div>
+            <div class="g un5" marker="un5c">Solving Trigonometric Equations with a Calculator</div>
             <div class="g un5" marker="un5g">Trigonometric Applications</div>
             <div class="g un5" marker="un5r">Unit Review</div>
             <div class="g un6" marker="un6a">Definition of a Conic Section</div>
@@ -1485,7 +1483,7 @@
         </p>
       </div>
 
-      <div id="un1e" class="anchor">Simplifying Square Roots and Rationalizing the Denominator</div>
+      <div id="un1e" class="anchor">Simplifying Square (and other) Roots and Rationalizing the Denominator</div>
       <div class="topic">
         <h1>Simplifying Square (and other) Roots and Rationalizing the Denominator</h1>
         <p>
@@ -1502,11 +1500,11 @@
           </tr>
           <tr>
             <td>Then remove the radical from the denominator:</td>
-            <td class="eq">`(5root3(2x)^2)/6x`</td>
+            <td class="eq">`(5root3(2x)^2)/(3root3(2x)^3)=(5root3(2x)^2)/(6x)`</td>
           </tr>
           <tr>
             <td>And simplify:</td>
-            <td class="eq">`(5root3(4x^2))/6x`</td>
+            <td class="eq">`(5root3(4x^2))/(6x)`</td>
           </tr>
         </table>
       </div>
@@ -2315,10 +2313,12 @@
       <div id="un3k" class="anchor">Sinusoidal Applications</div>
       <div class="topic">
         <h1>Sinusoidal Applications</h1>
-        Basic trigonometry is used very widely, and often in conjunction with Pythagoras' theorem.
-        Trigonometry is usually used to convert between a two-dimensional angled vector to its two perpendicular magnitudes, whether the magnitude be length, force, or any other number.
-        This means it is used in geometry all over the place because so many things are measured in angles and lengths, and even in physics where that vector may be force, velocity, or acceleration.
-        In fact, in most games, coordinates are measured in cartesian space, meaning that all dimensions are perpendicular to each other, so they have to use trigonometry to convert your character's speed and direction plus your current position to your next position.
+        <p>
+          Basic trigonometry is used very widely, and often in conjunction with Pythagoras' theorem.
+          Trigonometry is usually used to convert between a two-dimensional angled vector to its two perpendicular magnitudes, whether the magnitude be length, force, or any other number.
+          This means it is used in geometry all over the place because so many things are measured in angles and lengths, and even in physics where that vector may be force, velocity, or acceleration.
+          In fact, in most games, coordinates are measured in cartesian space, meaning that all dimensions are perpendicular to each other, so they have to use trigonometry to convert your character's speed and direction plus your current position to your next position.
+        </p>
       </div>
 
       <div id="un3r" class="anchor">Unit Review</div>
@@ -2361,39 +2361,674 @@
       <div id="un4a" class="anchor" top="1">Definition of Imaginary and Complex Numbers</div>
       <div class="topic">
         <h1>Definition of Imaginary and Complex Numbers</h1>
+        <p>
+          Many mathematicians realized that `sqrt4=2` and started asking more questions, like what is `sqrt(-1)`?
+          Well, `1*1=1`, and `(-1)*(-1)=1`, so which number squares to `-1`?
+          A greek mathematician named <a href="https://en.wikipedia.org/wiki/Heron_of_Alexandria">Heron of Alexandria</a> was the first documented to have discovered the answer to this problem: the imaginary number `i`.
+          Although this concept was not widely accepted until <a href="https://en.wikipedia.org/wiki/Leonhard_Euler">Leohnard Euler</a> and <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss">Carl Freidrich Gauss</a>' work, `i` is basically a unit to define numbers in another dimension perpendicular to the real number line.
+          So `2-sqrt(-4)=2-2i`.
+        </p>
+        <p>
+          With these imaginary numbers, we can create what are called <strong>complex numbers</strong>.
+          A complex number is a number with a real part and an imaginary part, like `2-2i`.
+          All arithmetic acts the same with complex numbers as something like `2-2x`, just that `i^2=1`, so `(2-2i)^2=4-8i+4i^2=4-8i-4=8i`.
+          This also means that `i^3=-i` and `i^4=1`.
+          Now, we can actually graph these complex numbers just the same we would do with real numbers, just using another dimension.
+          This plane is called the complex number plane, as opposed to the real number line.
+          Here is an example of `-6+4i` on the complex number plane:
+        </p>
+        <svg viewBox="0 0 102 102" style="max-width: 930px; display: block;">
+          <g transform="translate(0,-950.36216)"
+             id="layer1">
+            <path id="path4434"
+                  d="m 1,1001.3622 100,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+            <path id="path4442"
+                  d="m 1,1001.3622 3,-2.00004 0,4.00004 z"
+                  style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+            <path id="path4444"
+                  d="m 101,1001.3622 -3,-2.00004 0,4.00004 z"
+                  style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+            <path id="path4446"
+                  d="m 51,951.36216 0,100.00004"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+            <path id="path4448"
+                  d="m 51,1051.3622 -2,-3 4,0 z"
+                  style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+            <path id="path4450"
+                  d="m 51,951.36216 -2,3 4,0 z"
+                  style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+            <path id="path4452"
+                  d="m 56,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 61,1000.3622 0,2"
+                  id="path4454" />
+            <path id="path4456"
+                  d="m 66,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 71,1000.3622 0,2"
+                  id="path4458" />
+            <path id="path4460"
+                  d="m 76,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 81,1000.3622 0,2"
+                  id="path4462" />
+            <path id="path4464"
+                  d="m 86,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 91,1000.3622 0,2"
+                  id="path4466" />
+            <path id="path4468"
+                  d="m 96,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 46,1000.3622 0,2"
+                  id="path4470" />
+            <path id="path4472"
+                  d="m 41,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 36,1000.3622 0,2"
+                  id="path4474" />
+            <path id="path4476"
+                  d="m 31,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 26,1000.3622 0,2"
+                  id="path4478" />
+            <path id="path4480"
+                  d="m 21,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 16,1000.3622 0,2"
+                  id="path4482" />
+            <path id="path4484"
+                  d="m 11,1000.3622 0,2"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 6,1000.3622 0,2"
+                  id="path4486" />
+            <path id="path4490"
+                  d="m 50,996.36216 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,991.36216 2,0"
+                  id="path4500" />
+            <path id="path4502"
+                  d="m 50,986.36216 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,981.36216 2,0"
+                  id="path4504" />
+            <path id="path4506"
+                  d="m 50,976.36216 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,971.36216 2,0"
+                  id="path4508" />
+            <path id="path4510"
+                  d="m 50,966.36216 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,961.36216 2,0"
+                  id="path4512" />
+            <path id="path4514"
+                  d="m 50,956.36216 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,1006.3622 2,0"
+                  id="path4516" />
+            <path id="path4518"
+                  d="m 50,1011.3622 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,1016.3622 2,0"
+                  id="path4520" />
+            <path id="path4522"
+                  d="m 50,1021.3622 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,1026.3622 2,0"
+                  id="path4524" />
+            <path id="path4526"
+                  d="m 50,1031.3622 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,1036.3622 2,0"
+                  id="path4528" />
+            <path id="path4530"
+                  d="m 50,1041.3622 2,0"
+                  style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <path style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                  d="m 50,1046.3622 2,0"
+                  id="path4532" />
+            <text id="text4534"
+                  y="1005.3622"
+                  x="55"
+                  style="font-style:normal;font-weight:normal;font-size:3.75px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan style="font-size:2.5px"
+                                              y="1005.3622"
+                                              x="55"
+                                              id="tspan4536" /></text>
+            <text id="text4586"
+                  y="1004.3622"
+                  x="55"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="55"
+                                              id="tspan4588">1</tspan></text>
+            <text id="text4590"
+                  y="1004.3622"
+                  x="60"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="60"
+                                              id="tspan4592">2</tspan></text>
+            <text id="text4594"
+                  y="1004.3622"
+                  x="65"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="65"
+                                              id="tspan4596">3</tspan></text>
+            <text id="text4598"
+                  y="1004.3622"
+                  x="70"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="70"
+                                              id="tspan4600">4</tspan></text>
+            <text id="text4602"
+                  y="1004.3622"
+                  x="75"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="75"
+                                              id="tspan4604">5</tspan></text>
+            <text id="text4606"
+                  y="1004.3622"
+                  x="80"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="80"
+                                              id="tspan4608">6</tspan></text>
+            <text id="text4610"
+                  y="1004.3622"
+                  x="85"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="85"
+                                              id="tspan4612">7</tspan></text>
+            <text id="text4614"
+                  y="1004.3622"
+                  x="90"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="90"
+                                              id="tspan4616">8</tspan></text>
+            <text id="text4618"
+                  y="1004.3622"
+                  x="95"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="95"
+                                              id="tspan4620">9</tspan></text>
+            <text id="text4622"
+                  y="1004.3622"
+                  x="44"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="44"
+                                              id="tspan4624">-1</tspan></text>
+            <text id="text4626"
+                  y="1004.3622"
+                  x="39"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="39"
+                                              id="tspan4628">-2</tspan></text>
+            <text id="text4630"
+                  y="1004.3622"
+                  x="34"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="34"
+                                              id="tspan4632">-3</tspan></text>
+            <text id="text4634"
+                  y="1004.3622"
+                  x="29"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="29"
+                                              id="tspan4636">-4</tspan></text>
+            <text id="text4638"
+                  y="1004.3622"
+                  x="24"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="24"
+                                              id="tspan4640">-5</tspan></text>
+            <text id="text4642"
+                  y="1004.3622"
+                  x="19"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="19"
+                                              id="tspan4644">-6</tspan></text>
+            <text id="text4646"
+                  y="1004.3622"
+                  x="14"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="14"
+                                              id="tspan4648">-7</tspan></text>
+            <text id="text4650"
+                  y="1004.3622"
+                  x="9"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="9"
+                                              id="tspan4652">-8</tspan></text>
+            <text id="text4654"
+                  y="1004.3622"
+                  x="5"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1004.3622"
+                                              x="5"
+                                              id="tspan4656">-9</tspan></text>
+            <text id="text4658"
+                  y="1008.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1008.3622"
+                                              x="52"
+                                              id="tspan4660" /></text>
+            <text id="text4662"
+                  y="1007.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1007.3622"
+                                              x="52"
+                                              id="tspan4664">-1i</tspan></text>
+            <text id="text4666"
+                  y="1012.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1012.3622"
+                                              x="52"
+                                              id="tspan4668">-2i</tspan></text>
+            <text id="text4670"
+                  y="1017.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1017.3622"
+                                              x="52"
+                                              id="tspan4672">-3i</tspan></text>
+            <text id="text4674"
+                  y="1022.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1022.3622"
+                                              x="52"
+                                              id="tspan4676">-4i</tspan></text>
+            <text id="text4678"
+                  y="1027.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1027.3622"
+                                              x="52"
+                                              id="tspan4680">-5i</tspan></text>
+            <text id="text4682"
+                  y="1032.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1032.3622"
+                                              x="52"
+                                              id="tspan4684">-6i</tspan></text>
+            <text id="text4686"
+                  y="1037.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1037.3622"
+                                              x="52"
+                                              id="tspan4688">-7i</tspan></text>
+            <text id="text4690"
+                  y="1042.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1042.3622"
+                                              x="52"
+                                              id="tspan4692">-8i</tspan></text>
+            <text id="text4694"
+                  y="1047.3622"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="1047.3622"
+                                              x="52"
+                                              id="tspan4696">-9i</tspan></text>
+            <text id="text4698"
+                  y="997.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="997.36218"
+                                              x="52"
+                                              id="tspan4700">1i</tspan></text>
+            <text id="text4702"
+                  y="992.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="992.36218"
+                                              x="52"
+                                              id="tspan4704">2i</tspan></text>
+            <text id="text4706"
+                  y="987.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="987.36218"
+                                              x="52"
+                                              id="tspan4708">3i</tspan></text>
+            <text id="text4710"
+                  y="982.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="982.36218"
+                                              x="52"
+                                              id="tspan4712">4i</tspan></text>
+            <text id="text4714"
+                  y="977.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="977.36218"
+                                              x="52"
+                                              id="tspan4716">5i</tspan></text>
+            <text id="text4718"
+                  y="972.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="972.36218"
+                                              x="52"
+                                              id="tspan4720">6i</tspan></text>
+            <text id="text4722"
+                  y="967.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="967.36218"
+                                              x="52"
+                                              id="tspan4724">7i</tspan></text>
+            <text id="text4726"
+                  y="962.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="962.36218"
+                                              x="52"
+                                              id="tspan4728">8i</tspan></text>
+            <text id="text4730"
+                  y="957.36218"
+                  x="52"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="957.36218"
+                                              x="52"
+                                              id="tspan4732">9i</tspan></text>
+            <text transform="matrix(0,-1,1,0,0,0)"
+                  id="text4734"
+                  y="48.847912"
+                  x="-990.65942"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="48.847912"
+                                              x="-990.65942"
+                                              id="tspan4736">Complex Number Line</tspan></text>
+            <text id="text4738"
+                  y="999.36218"
+                  x="64.525124"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="999.36218"
+                                              x="64.525124"
+                                              id="tspan4740">Real Number Line</tspan></text>
+            <circle r="1"
+                    cy="981.36218"
+                    cx="21"
+                    id="path4742"
+                    style="opacity:1;fill:#09c305;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            <text id="text4744"
+                  y="980.36218"
+                  x="22"
+                  style="font-style:normal;font-weight:normal;font-size:2.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  xml:space="preserve"><tspan y="980.36218"
+                                              x="22"
+                                              id="tspan4746">-6+4i</tspan></text>
+          </g>
+        </svg>
       </div>
 
       <div id="un4b" class="anchor">Complex Conjugates</div>
       <div class="topic">
         <h1>Complex Conjugates</h1>
+        <p>
+          A complex conjugate is a complex number with an inverted imaginary part.
+          For example, the complex conjugate of `4-i` is `4+i`, and vice versa.
+          Complex conjugates can be very useful in solving complex equations, because multiplying a complex number by its conjugate will result in a real number: `(a+bi)(a-bi)=a^2+b^2`.
+          Let's say we are solving for `x` in the equation `x^2+4=0`, we could solve this in two ways.
+        </p>
+        <table class="eqmap">
+          <tr>
+            <td>We could simply isolate x:</td>
+            <td class="eq">`x^2=-4`</td>
+          </tr>
+          <tr>
+            <td>And then simplify:</td>
+            <td class="eq">`x=+-2i`</td>
+          </tr>
+        </table>
+        <table class="eqmap">
+          <tr>
+            <td>Or, we could use complex conjugates to get the imaginary parts:</td>
+            <td class="eq">`(x+2i)(x-2i)=0`</td>
+          </tr>
+          <tr>
+            <td>And grab the roots from that:</td>
+            <td class="eq">`[-2i,2i]`</td>
+          </tr>
+        </table>
+        <p>
+          From Algebra 1, we already know that we can extract roots from factored polynomials by inverting the non-`x` part of a 1st degree polynomial divided by its `x` coefficient.
+          For example, the root of `(x+2i)` is `-(-2i)/1=2i`.
+        </p>
       </div>
 
       <div id="un4c" class="anchor">Polynomials</div>
       <div class="topic">
         <h1>Polynomials</h1>
+        <p>
+          With any polynomial of degree `n`, we can easily determine its 'end' behaviors and get a list of how many bumps/curves it may have.
+          For determining end behaviors, the `+x` end will tend towards `oo` inherently, if `n` is even the `-x` end tend towards `+oo` whereas if it is odd the `-x` end will tend towards `-oo`, and a negative coefficient for the largest polynomial will vertically invert both ends.
+          The number of bumps or turns `b` is a range of integers where `0<=b< n` that follows the equation `(n-b)mod2=1`, or basically `b` is at intervals of two starting at `(n+1)mod2` and ending at `n-1`.
+          This means that the equation `-2x^3+15x^2-4x+10` tends towards `+oo` in the `-x` direction and `-oo` in the `+x` direction, and has `[0,2]` bumps.
+        </p>
+        <p>
+          We can also gather the possible number of complex and imaginary zeroes, and even determine all potential rational zeroes.
+          The total number of roots for any given polynomial will not exceed that polynomial's degree `n`.
+          Any root can end up being complex, so the maximum number of complex zeroes is `n`.
+          However, imaginary zeroes have to come in pairs, so the maximum number of imaginary zeroes is equal to `n-nmod2`.
+          As for the possible real zeroes, with the polynomial in the form `ax^n+bx^(n-1)...k`, you can easily just divide the factors of `a` by the factors of `k`.
+          So the possible real zeroes for `-2x^3+15x^2-4x+10` would be `+-1/1, +-1/2, +-1/5, +-1/10, +-2/1, +-2/2, +-2/5, +-2/10`, or simplified, `+-2, +-1, +-1/2, +-2/5, +-1/5, +-1/10`.
+          Now, only up to three of these are actually roots for the given polynomial, but finding the possible zeroes will let you use a calculator to "plug n' play," which may be much easier.
+        </p>
+        <p>
+          For the graph of any polynomial, there may be local minimums and maximums.
+          These are where the slope of the line crosses between negative and positive.
+          Between each of these local limits, there will be an arc, and we can classify that arc interval in two different ways: <strong>concave up</strong> and <strong>concave down</strong>.
+          To help determine which direction an interval is concave, think of a satellite dish.
+          It is a concave mirror, and points towards where ever the respective satellite is.
+          In the case of polynomial intervals, if the 'dish' is pointing down, it is concave down, and if it is pointing up it is respectively concave up.
+          It will make a bit more sense why you should know this when you get into derivatives in calculus.
+        </p>
+        <p>
+          Now, let's say we want to actually divide polynomials.
+          We can do this in two different ways, long division and synthetic division.
+          Long polynomial division is fairly simple, with only two operations per term: 1) divide the current dividend term by the first term of the divisor and add it to the final answer, 2) correct the divisor by subtracting the result from step 1 multiplied by the divisor, 3) move to the next term and continue until there are less dividend terms than divisor terms left.
+          By the time this is done, whatever is left in the divisor becomes the remainder.
+          For an example, let's evaluate `(x^3-2x^2+0x-4)/(x-3)`: (image credit from <a href="https://en.wikipedia.org/wiki/Polynomial_long_division">Wikipedia</a>, my math processor couldn't handle long division)
+          Just like normal long division, long polynomial division is recursive, so start with the first term, then repeat the first three steps using the next term until there are none left.
+          <table class="eqmap">
+            <tr>
+              <td>Divide the current term of the dividend by the highest term of the divisor, then add the result to the quotient:</td>
+              <td><img src="https://upload.wikimedia.org/math/a/7/d/a7d4efe5b83513063fe2dd3483249dbf.png"></td>
+            </tr>
+            <tr>
+              <td>Multiply the divisor by the result just obtained, and write it under the current term:</td>
+              <td><img src="https://upload.wikimedia.org/math/c/4/7/c473dbb392ff8a3ff7150edb74be11d9.png"></td>
+            </tr>
+            <tr>
+              <td>Subtract the product just obtained from the corresponding terms of the divisor and write the result underneath, bringing down another term as well:</td>
+              <td><img src="https://upload.wikimedia.org/math/2/a/5/2a56cacd94035ccecdd4d4e7ab92f1bd.png"></td>
+            </tr>
+            <tr>
+              <td>After repeating the first three steps correctly, you should end up with something that looks like this:</td>
+              <td><img src="https://upload.wikimedia.org/math/c/7/6/c76c6720c8226cdcf189650287b40a10.png"></td>
+            </tr>
+            <tr>
+              <td>If there is a remainder, in this case `5`, add it to the result over the divisor:</td>
+              <td>Final answer: `x^2+x+3+(5/x-3)`</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          The other way to divide polynomials is by using synthetic division.
+          Synthetic division can be simpler than long division, because there are no confusing `x`'s or powers, just the coefficients.
+          However, regular synthetic division only works on <strong>monic</strong> linear denominators (`x-a`).
+          Let's say we are to evaluate `(x^3-12x^2-42)/(x-3)`.
+          As synthetic division is also recurisve, you will need to repeat a couple steps changing to the next column every time until there are no more columns left.
+          Again, credit goes to <a href="https://en.wikipedia.org/wiki/Synthetic_division">Wikipedia</a> for the following images.
+          <table class="eqmap">
+            <tr>
+              <td>First, write the coefficients of the dividend inside a right angle:</td>
+              <td><img src="https://upload.wikimedia.org/math/6/e/2/6e2eeeb405085d9f88405ab215005c7a.png"></td>
+            </tr>
+            <tr>
+              <td>Then negate the coefficients of the divisor and write in the second coefficient of the divisor to the left of this corner:</td>
+              <td><img src="https://upload.wikimedia.org/math/1/0/c/10c8e86211135ce0a476ecdb13a0df59.png"></td>
+            </tr>
+            <tr>
+              <td>'Drop' the first coefficient of the divisor below the bottom line:</td>
+              <td><img src="https://upload.wikimedia.org/math/c/8/e/c8e43b7d4d2f7e85abf47c6b8c5558b5.png"></td>
+            </tr>
+            <tr>
+              <td>Multiply the dropped number by the extracted divisor coefficient, and place it in the next column</td>
+              <td><img src="https://upload.wikimedia.org/math/0/0/8/00899021c7b3a7a8909fe1bb513998b2.png"></td>
+            </tr>
+            <tr>
+              <td>Sum the next column and put the result below the bottom line:</td>
+              <td><img src="https://upload.wikimedia.org/math/f/4/2/f42ea27aa171eb9fa924f9be3d57e2b6.png"></td>
+            </tr>
+            <tr>
+              <td>Repeat the previous two steps for each column, and you should end up with somethign like this:</td>
+              <td><img src="https://upload.wikimedia.org/math/f/c/6/fc6db2929b1d3c7b5630f35945e6b677.png"></td>
+            </tr>
+            <tr>
+              <td>To get our final answer, we need to put the coefficients back with their variables, and if there was not a `0` for the last coefficient of the result, then that becomes the remainder:</td>
+              <td>`1x^2-9x-27-123/(x-3)`</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          Now we have ways to find the zeroes of a polynomial, both possible zeroes and factored zeroes, but how would we get a polynomial from its zeroes?
+          Quite simply, because every zero (`a/b`) can be converted into a factor of a polynomial by using `a/b=>(bx-a)`, we can convert all of them and multiply them together.
+          So, let's walk through an example with the zeroes `[-1, .3, 15]`:
+          <table class="eqmap">
+            <tr>
+              <td>First we need to convert every zero into a factor:</td>
+              <td class="eq">`(x+1)(10x-3)(x-15)`</td>
+            </tr>
+            <tr>
+              <td>Then we can multiply these factors together to get a polynomial:</td>
+              <td class="eq">`10x^3-143x^2-108x+45`</td>
+            </tr>
+          </table>
+        </p>
       </div>
 
       <div id="un4d" class="anchor">Rational Equations</div>
       <div class="topic">
         <h1>Rational Equations</h1>
+        <p>
+          A rational equation is simply any equation with any sort of division in it.
+          Solving rational equations is not really any different than normal equations, the only differences being rational asymptotes, and <strong>excluded values</strong> and <strong>extraneous solutions</strong>.
+          An example of a function that has both a vertical and horizontal asymptote would be simply `f(x)=1/x`, because `1/0` is undefined and `1/x=0` is unsolvable.
+          This also means that `x=0` would be an excluded value, because the equation cannot be solved when `x=0`.
+          Now let's say that we have to solve `(4x)/(x-1)=4/(x-1)`.
+          Simplifying it we would eventually get `x=1`, but evaluating our equation with this solution proves impossible because we cannot divide by zero, therefore the solution `x=1` is extraneous and the expression has no solutions.
+        </p>
+        <p>
+          To help us get asymptotes, we can try finding all situations we divide by zero, but this does not always yield all possible asymptotes or true ones, and this only works for vertical asymptotes.
+          The best way to get all asymptotes is to graph your function and look at every vertical and horizontal line it nears but never reaches.
+          The function has to tend towards `+oo` or `-oo` just before and after every asymptote to qualify it being an asymptote.
+        </p>
       </div>
 
       <div id="un4e" class="anchor">Optimization</div>
       <div class="topic">
         <h1>Optimization</h1>
+        <img src="http://web2.0calc.com/graph?r[]=abs%282x%2B2%284%2Fx%29%29&trig=deg&b[]=-2.812&b[]=2.813&b[]=3.204&b[]=16.021&w=819&h=318&c=0.45112024466325884" class="image r">
+        <p>
+          Optimization of a function is finding what parameters or structures of that function result in the closest to a specific value or set of values.
+          For a quick example, what are the smallest dimensions of a rectangle with an area of `4sf"un"^2`?
+          The easiest way to solve this problem is to create a graph of it.
+          I have already created a graph for you which shows the perimeter (`y`) for each width (`x`), and the global minimum (smallest dimensions) is `x=2`.
+          Therefore, the answer is `2sf"x"2`.
+        </p>
+        <p>
+          Optimization is really everywhere, usually in the form of algorithmic optimization, but even nature does it with things like water drops!
+          The shape that requires the least amount of energy for a free-floating body of water is a sphere, because it has the least amount of surface area.
+          Otherwise, you might use it even while just commuting to work, because you are trying to find the fastest and most efficient way of getting there.
+          I use it every time I do any sort of programming, because I am trying to find sometimes the easiest for me to implement, but usually the most efficient way for a computer to do what I want, like zooming an image when you click on it (that took me a week to get working).
+        </p>
       </div>
 
       <div id="un4f" class="anchor">Uses for more Algebra</div>
       <div class="topic">
         <h1>Uses for more Algebra</h1>
+        <p>
+          As above, optimization is everywhere, and can be used for anything, but the more advanced concepts like Polynomials and Complex Numbers steadily occur only in more advanced fields.
+          Specifically, complex numbers are used in advanced Mathematics, Electrical Engineering, and Physics.
+          Polynomials are used more for modeling real world relations in math terms, so things like trajectories can be predicted.
+        </p>
       </div>
 
       <div id="un4r" class="anchor">Unit Review</div>
       <div class="topic">
         <h1>Unit Review</h1>
         <p>
-
+          Let's say you are designing a cylindrical water tank for your water cooled computer.
+          It has to hold 3 Liters (3000sf"cm"^2) and have the least amount of surface area for cost reasons.
+          What is the radius of this cylinder to `1/10^sf"th"`? (hint: add up surface areas)
+          <svg viewBox="-1 -1 18 18" id="un4bad" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #dd2200; fill-opacity: 1; stroke: none" />
+            <g style="font-style: normal; font-weight: normal; font-size: 15.06368446px; line-height: 125%; font-family: Sans; letter-spacing: 0px; word-spacing: 0px; fill: #dd2200; fill-opacity: 1; stroke: none; stroke-width: 1px; stroke-linecap: butt; stroke-linejoin: miter; stroke-opacity: 1">
+              <path d="m 8.8237951,2.5239677 -0.1912381,7.9363843 -1.2504035,0 -0.2059488,-7.9363843 1.6475904,0 z m -0.073553,10.9520633 -1.5004842,0 0,-1.551971 1.5004842,0 0,1.551971 z" />
+            </g>
+          </svg>
+          <svg viewBox="-1 -1 18 18" id="un4pass" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #1ec517; fill-opacity: 1; stroke: none" />
+            <path d="M 12.167969,3.2519531 C 10.197849,4.6081262 8.1088336,7.1395513 6.78125,10.175781 5.6544516,9.0070855 4.894824,8.4106287 3.3203125,7.4863281 L 2.6621094,8.6074219 C 4.5268851,9.7021191 4.8659662,9.922211 6.4453125,11.666016 l 0.7246094,0.798828 0.3691406,-1.013672 C 8.6912417,8.2904487 11.004097,5.6316523 12.90625,4.3222656 L 12.167969,3.2519531 Z" style="color: #000000; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: medium; line-height: normal; font-family: sans-serif; text-indent: 0; text-align: start; text-decoration: none; text-decoration-line: none; text-decoration-style: solid; text-decoration-color: #000000; letter-spacing: normal; word-spacing: normal; text-transform: none; direction: ltr; block-progression: tb; writing-mode: lr-tb; baseline-shift: baseline; text-anchor: start; white-space: normal; clip-rule: nonzero; display: inline; overflow: visible; visibility: visible; opacity: 1; isolation: auto; mix-blend-mode: normal; color-interpolation: sRGB; color-interpolation-filters: linearRGB; solid-color: #000000; solid-opacity: 1; fill: #1ec517; fill-opacity: 1; fill-rule: evenodd; stroke: none; stroke-width: 1.29999995; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; color-rendering: auto; image-rendering: auto; shape-rendering: auto; text-rendering: auto; enable-background: accumulate" />
+          </svg>
+          <input type="text" id="cyn">
         </p>
+        <script>
+          d('cyn').addEventListener('input', function () {
+            var t = d('cyn').value.replace(' ', '').replace(',', '');
+            if (Math.round(t*10) == 78) {
+              d('un4pass').style.display = 'inline-block';
+              d('un4bad').style.display = 'none';
+            } else {
+              d('un4pass').style.display = 'none';
+              d('un4bad').style.display = 'inline-block';
+            }
+          });
+        </script>
       </div>
     </div>
 
@@ -2403,44 +3038,313 @@
       <div id="un5a" class="anchor" top="1">Finding Answers to Trigonometric Functions with a Point or Right Triangle</div>
       <div class="topic">
         <h1>Finding Answers to Trigonometric Functions with a Point or Right Triangle</h1>
+        <p>
+          Any trigonometric function converts one value to another via a predetermined relationship.
+          These relationships are simple fractions for the major six functions:
+        </p>
+        <table class="eqmap">
+          <tr>
+            <td>Sine (`bbb"sin"`)</td>
+            <td class="eq">`sf"opp"/sf"hyp"&1/csc(theta)`</td>
+          </tr>
+          <tr>
+            <td>Cosine (`bbb"cos"`)</td>
+            <td class="eq">`sf"adj"/sf"hyp"&1/sec(theta)`</td>
+          </tr>
+          <tr>
+            <td>Tangent (`bbb"tan"`)</td>
+            <td class="eq">`sf"opp"/sf"adj"&1/cot(theta)`</td>
+          </tr>
+          <tr>
+            <td>Cotangent (`bbb"cot"`)</td>
+            <td class="eq">`sf"adj"/sf"opp"&1/tan(theta)`</td>
+          </tr>
+          <tr>
+            <td>Secant (`bbb"sec"`)</td>
+            <td class="eq">`sf"hyp"/sf"adj"&1/cos(theta)`</td>
+          </tr>
+          <tr>
+            <td>Cosecant (`bbb"csc"`)</td>
+            <td class="eq">`sf"hyp"/sf"opp"&1/sin(theta)`</td>
+          </tr>
+        </table>
+        <p>
+          In a situation where you are given `x`, `y`, and maybe `r` for the radius, you can calulate every one of the above functions.
+          `x` becomes `sf"adj"`, `y` becomes `sf"opp"`, and `sf"hyp"` can be calulated using the pythagorean theorem by `sqrt(x^2+y^2)`; if `r` is not given, it is assumed to be `1`.
+          To calculate `rsin(theta)` you could simply evaluate `r*y/sqrt(x^2+y^2)`.
+        </p>
       </div>
 
-      <div id="un5b" class="anchor">Trigonometric Proofs</div>
+      <div id="un5b" class="anchor">Trigonometric Proofs and Identities</div>
       <div class="topic">
-        <h1>Trigonometric Proofs</h1>
+        <h1>Trigonometric Proofs and Identities</h1>
+        <p>
+          There are tons of identities, equations to help convert and equation in one pattern into another, which can be used to solve equations.
+          They are split up into categories below, to help make them easier to read.
+          All of the proofs below are in <strong>radians</strong> where `h=sf"hyp"`, `a=sf"opp"`, and `b=sf"adj"`.
+          Note: the below equations are for a unit circle as it is simplest, but will still work on any circle as trigonometric functions do anyway.
+        </p>
+        <h2>Ratio Identities</h2>
+        <table class="eqmap">
+          <tr>
+            <td>`a/b=(a/h)/(b/h)`</td>
+          </tr>
+          <tr>
+            <td>`tan(theta)=a/b=(a/h)/(b/h)=1/cot(theta)=sin(theta)/cos(theta)`</td>
+          </tr>
+          <tr>
+            <td>`cot(theta)=b/a=(b/h)/(a/h)=1/tan(theta)=cos(theta)/sin(theta)`</td>
+          </tr>
+          <tr>
+            <td>`sec(theta)=1/cos(theta)=h/b`</td>
+          </tr>
+          <tr>
+            <td>`csc(theta)=1/sin(theta)=h/a`</td>
+          </tr>
+          <tr>
+            <td>`tan(theta)=a/b=((ah)/(ab))/((bh)/(ab))=(h/a)/(h/b)=sec(theta)/csc(theta)`</td>
+          </tr>
+        </table>
+        <h2>Complementary Angle Identities</h2>
+        <table class="eqmap">
+          <tr>
+            <td>`sin(pi/2-theta)=cos(theta)`</td>
+          </tr>
+          <tr>
+            <td>`cos(pi/2-theta)=sin(theta)`</td>
+          </tr>
+          <tr>
+            <td>`tan(pi/2-theta)=cot(theta)`</td>
+          </tr>
+          <tr>
+            <td>`cot(pi/2-theta)=tan(theta)`</td>
+          </tr>
+          <tr>
+            <td>`sec(pi/2-theta)=csc(theta)`</td>
+          </tr>
+          <tr>
+            <td>`csc(pi/2-theta)=sec(theta)`</td>
+          </tr>
+        </table>
+        <h2>Pythagorean Identities</h2>
+        <table class="eqmap">
+          <tr>
+            <td><strong>Identity</strong></td>
+            <td><strong>Proof</strong></td>
+          </tr>
+          <tr>
+            <td>`sin^2(theta)+cos^2(theta)=1`</td>
+            <td>`(a^2+b^2)/h^2=1` as per the pythagorean theorem<br>`sin(theta)=b/h and cos(theta)=a/h `so <br>` cos^2(theta)+sin^2(theta)=(b^2+a^2)/h^2`</td>
+          </tr>
+          <tr>
+            <td>`csc^2(theta)+sec^2(theta)-cot^2(theta)=`<br>`2+tan^2(theta)`</td>
+            <td>`h^2=a^2+b^2` as per the pythagorean theorem<br>`csc^2+sec^2=h^2/a^2+h^2/b^2=`<br>`(a^2+b^2)/a^2+(a^2+b^2)/b^2=2+b^2/a^2+a^2/b^2`<br>`2+b^2/a^2+a^2/b^2=2+tan^2(theta)+cot^2(theta)` so <br>`csc^2(theta)+sec^2(theta)-cot^2(theta)=2+tan^2(theta)`</td>
+          </tr>
+        </table>
+        <h2>Symmetry</h2>
+        <table class="eqmap">
+          <tr>
+            <td>`sin(-theta)=-sin(theta)`</td>
+            <td>`sin(pi/2-theta)=cos(theta)`</td>
+            <td>`sin(pi-theta)=sin(theta)`</td>
+          </tr>
+          <tr>
+            <td>`cos(-theta)=cos(theta)`</td>
+            <td>`cos(pi/2-theta)=sin(theta)`</td>
+            <td>`cos(pi-theta)=-cos(theta)`</td>
+          </tr>
+          <tr>
+            <td>`tan(-theta)=-tan(theta)`</td>
+            <td>`tan(pi/2-theta)=cot(theta)`</td>
+            <td>`tan(pi-theta)=-tan(theta)`</td>
+          </tr>
+          <tr>
+            <td>`csc(-theta)=-csc(theta)`</td>
+            <td>`csc(pi/2-theta)=sec(theta)`</td>
+            <td>`csc(theta-pi)=csc(theta)`</td>
+          </tr>
+          <tr>
+            <td>`sec(-theta)=sec(theta)`</td>
+            <td>`sec(pi/2-theta)=csc(theta)`</td>
+            <td>`sec(pi-theta)=-sec(theta)`</td>
+          </tr>
+          <tr>
+            <td>`cot(-theta)=-cot(theta)`</td>
+            <td>`cot(pi/2-theta)=tan(theta)`</td>
+            <td>`cot(pi-theta)=-cot(theta)`</td>
+          </tr>
+        </table>
+        <h2>Shifts and Periodicity</h2>
+        <table class="eqmap">
+          <tr>
+            <td>`sin(theta+pi/2)=cos(theta)`</td>
+            <td>`sin(theta+pi)=-sin(theta)`</td>
+            <td>`sin(theta+2pi)=sin(theta)`</td>
+          </tr>
+          <tr>
+            <td>`cos(theta+pi/2)=-sin(theta)`</td>
+            <td>`cos(theta+pi)=-cos(theta)`</td>
+            <td>`cos(theta+2pi)=cos(theta)`</td>
+          </tr>
+          <tr>
+            <td>`tan(theta+pi/2)=-cot(theta)`</td>
+            <td>`tan(theta+pi)=tan(theta)`</td>
+            <td>`tan(theta+2pi)=tan(theta)`</td>
+          </tr>
+          <tr>
+            <td>`csc(theta+pi/2)=sec(theta)`</td>
+            <td>`csc(theta+pi)=-csc(theta)`</td>
+            <td>`csc(theta+2pi)=csc(theta)`</td>
+          </tr>
+          <tr>
+            <td>`sec(theta+pi/2)=-csc(theta)`</td>
+            <td>`sec(theta+pi)=-sec(theta)`</td>
+            <td>`sec(theta+2pi)=sec(theta)`</td>
+          </tr>
+          <tr>
+            <td>`cot(theta+pi/2)=-tan(theta)`</td>
+            <td>`cot(theta+pi)=cot(theta)`</td>
+            <td>`cot(theta+2pi)=cot(theta)`</td>
+          </tr>
+        </table>
+        <h2>Angle Sum Identities</h2>
+        <table class="eqmap">
+          <tr>
+            <td>`sin(alpha+-beta)=sin(alpha)cos(beta)+-cos(alpha)sin(beta)`</td>
+          </tr>
+          <tr>
+            <td>`cos(alpha+-beta)=cos(alpha)cos(beta)&#8723sin(alpha)sin(beta)`</td>
+          </tr>
+          <tr>
+            <td>`tan(alpha+-beta)=(tan(alpha)+-tan(beta))/(1&#8723tan(alpha)tan(beta))`</td>
+          </tr>
+          <tr>
+            <td>`arcsin(alpha)+-arcsin(beta)=arcsin(alphasqrt(1-beta^2)+-betasqrt(1-alpha^2))`</td>
+          </tr>
+          <tr>
+            <td>`arccos(alpha)+-arccos(beta)=arccos(alphabeta&#8723sqrt((1-alpha^2)(1-beta^2)))`</td>
+          </tr>
+          <tr>
+            <td>`arctan(alpha)+-arctan(beta)=arctan((alpha+beta)/(1&#8723alphabeta))`</td>
+          </tr>
+        </table>
+        <p>
+          The images below are the proofs for the angle sum identities.
+          The bold lines are of unit length or `1`.
+          The first image is the proof for sine and cosine, and the second is for tangent.
+        </p>
+        <img style="width: 300px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/AngleAdditionDiagramSine.svg/638px-AngleAdditionDiagramSine.svg.png" class="image">
+        <img style="width: 300px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/AngleAdditionDiagramTangent.svg/638px-AngleAdditionDiagramTangent.svg.png" class="image">
+        <h2>Double Angle Identities</h2>
+        <table class="eqmap">
+          <tr>
+            <td>`sin(2theta)=2sin(theta)cos(theta)=(2tan(theta))/(1+tan^2(theta))`</td>
+          </tr>
+          <tr>
+            <td>`cos(2theta)=cos^2(theta)-sin^2(theta)=2cos^2(theta)-1=1-2sin^2(theta)=(1-tan^2(theta))/(1+tan^2(theta))`</td>
+          </tr>
+          <tr>
+            <td>`tan(2theta)=(2tan(theta))/(1-tan^2(theta))`</td>
+          </tr>
+          <tr>
+            <td>`cot(2theta)=(cot^2(theta)-1)/(2cot(theta))`</td>
+          </tr>
+        </table>
+        <h2>Half Angle Identities</h2>
+        <p>
+          These identities use the `sgn` function, which stands for 'sign'.
+          `sgn(x)={(-1 if x<0), (0 if x=0), (1 if x>0)]`.
+        </p>
+        <table class="eqmap">
+          <tr>
+            <td>`sin(theta/2)=sgn(2pi-theta+4pifloor(theta/(4pi)))sqrt((1-cos(theta))/2)`</td>
+          </tr>
+          <tr>
+              <td>`sin^2(theta/2)=(1-cos(theta))/2`</td>
+          </tr>
+          <tr>
+            <td>`cos(theta/2)=sgn(pi+theta+4pifloor((pi-theta)/(4pi)))sqrt((1+cos(theta))/2)`</td>
+          </tr>
+          <tr>
+            <td>`cos^2(theta/2)=(1+cos(theta))/2`</td>
+          </tr>
+          <tr>
+            <td>`tan(theta/2)=csc(theta)-cot(theta)=+-sqrt((1-cos(theta))/(1+cos(theta)))=sin(theta)/(1+cos(theta))=(1-cos(theta))/sin(theta)`</td>
+          </tr>
+          <tr>
+            <td>`tan((eta+theta)/2)=(sin(eta)+sin(theta))/(cos(eta)+cos(theta))`</td>
+          </tr>
+          <tr>
+            <td>`tan(theta/2+pi/4)=sec(theta)+tan(theta)`</td>
+          </tr>
+          <tr>
+            <td>`sqrt((1-sin(theta))/(1+sin(theta)))=(1-tan(theta/2))/(1+tan(theta/2))`</td>
+          </tr>
+          <tr>
+            <td>`tan(theta/2)=tan(theta)/(1+sec(theta))`</td>
+          </tr>
+          <tr>
+            <td>`cot(theta/2)=csc(theta)+cot(theta)=+-sqrt((1+cos(theta))/(1-cos(theta)))=sin(theta)/(1-cos(theta))==(1+cos(theta))/sin(theta)`</td>
+          </tr>
+        </table>
       </div>
 
-      <div id="un5c" class="anchor">Solving Trigonometric Equations with or without a Calculator</div>
+      <div id="un5c" class="anchor">Solving Trigonometric Equations with a Calculator</div>
       <div class="topic">
-        <h1>Solving Trigonometric Equations with or without a Calculator</h1>
-      </div>
-
-      <div id="un5d" class="anchor">Sum and Difference Identities</div>
-      <div class="topic">
-        <h1>Sum and Difference Identities</h1>
-      </div>
-
-      <div id="un5e" class="anchor">Double Angle Identities</div>
-      <div class="topic">
-        <h1>Double Angle Identities</h1>
-      </div>
-
-      <div id="un5f" class="anchor">Half-Angle Identities</div>
-      <div class="topic">
-        <h1>Half-Angle Identities</h1>
+        <h1>Solving Trigonometric Equations with a Calculator</h1>
+        <p>
+          This is just the same as solving any other equation with a calculator: you have to format the equation so your answer is on one side, and then plug the other side into the calculator and magic happens.
+          There are a few things specific to trigonometric functions however.
+          It is very useful to have the definitions of the major 6 trigonometric functions memorized (ie. `sin(theta)=sf"opp"/sf"hyp"`) so it is easier to solve for something like the hypotenuse, and the symbols of the inverse functions.
+          For example, if `sin(theta)=a/b`, `arcsin(a/b)=bbb"asin"(a/b)=sin^-1(a/b)=theta`.
+          Also, always make sure your calculator is in the correct mode (degrees or radians), otherwise you may get some crazy answers.
+        </p>
       </div>
 
       <div id="un5g" class="anchor">Trigonometric Applications</div>
       <div class="topic">
         <h1>Trigonometric Applications</h1>
+        <p>
+          Trigonometry can be applied to anything with angles or curves.
+          This absolutely includes Engineering, higher-level math like Calculus, Game Design and other Computer Programming, and Physics.
+        </p>
       </div>
 
       <div id="un5r" class="anchor">Unit Review</div>
       <div class="topic">
         <h1>Unit Review</h1>
         <p>
-
+          Let's say you are creating a 3d first-person shooter game.
+          You need directional inputs to move the character in the appropriate direction at a specific speed.
+          The speed of the character is represented by the linear function `f(m)=m*2` where `0<=m<=1`.
+          The biggest problem is that the character's orientation may differ from the global coordinates, so the character may already be rotated.
+          Your job is to calculate the character's next `x` position (use cosine) if their current position is `23sf"un"`, their current direction is `40^@`, and they are moving at `m=70%` speed turning `20^@`.
+          The character's next `x` position to one decimal point is
+          <svg viewBox="-1 -1 18 18" id="un5bad" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #dd2200; fill-opacity: 1; stroke: none" />
+            <g style="font-style: normal; font-weight: normal; font-size: 15.06368446px; line-height: 125%; font-family: Sans; letter-spacing: 0px; word-spacing: 0px; fill: #dd2200; fill-opacity: 1; stroke: none; stroke-width: 1px; stroke-linecap: butt; stroke-linejoin: miter; stroke-opacity: 1">
+              <path d="m 8.8237951,2.5239677 -0.1912381,7.9363843 -1.2504035,0 -0.2059488,-7.9363843 1.6475904,0 z m -0.073553,10.9520633 -1.5004842,0 0,-1.551971 1.5004842,0 0,1.551971 z" />
+            </g>
+          </svg>
+          <svg viewBox="-1 -1 18 18" id="un5pass" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #1ec517; fill-opacity: 1; stroke: none" />
+            <path d="M 12.167969,3.2519531 C 10.197849,4.6081262 8.1088336,7.1395513 6.78125,10.175781 5.6544516,9.0070855 4.894824,8.4106287 3.3203125,7.4863281 L 2.6621094,8.6074219 C 4.5268851,9.7021191 4.8659662,9.922211 6.4453125,11.666016 l 0.7246094,0.798828 0.3691406,-1.013672 C 8.6912417,8.2904487 11.004097,5.6316523 12.90625,4.3222656 L 12.167969,3.2519531 Z" style="color: #000000; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: medium; line-height: normal; font-family: sans-serif; text-indent: 0; text-align: start; text-decoration: none; text-decoration-line: none; text-decoration-style: solid; text-decoration-color: #000000; letter-spacing: normal; word-spacing: normal; text-transform: none; direction: ltr; block-progression: tb; writing-mode: lr-tb; baseline-shift: baseline; text-anchor: start; white-space: normal; clip-rule: nonzero; display: inline; overflow: visible; visibility: visible; opacity: 1; isolation: auto; mix-blend-mode: normal; color-interpolation: sRGB; color-interpolation-filters: linearRGB; solid-color: #000000; solid-opacity: 1; fill: #1ec517; fill-opacity: 1; fill-rule: evenodd; stroke: none; stroke-width: 1.29999995; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; color-rendering: auto; image-rendering: auto; shape-rendering: auto; text-rendering: auto; enable-background: accumulate" />
+          </svg>
+          <input type="text" id="x">
+          `sf"un"`.
         </p>
+        <script>
+          d('x').addEventListener('input', function () {
+            var t = d('x').value.replace(' ', '').replace(',', '');
+            if (Math.round(t*10) == 238) {
+              d('un5pass').style.display = 'inline-block';
+              d('un5bad').style.display = 'none';
+            } else {
+              d('un5pass').style.display = 'none';
+              d('un5bad').style.display = 'inline-block';
+            }
+          });
+        </script>
       </div>
     </div>
 
@@ -2450,16 +3354,64 @@
       <div id="un6a" class="anchor" top="1">Definition of a Conic Section</div>
       <div class="topic">
         <h1>Definition of a Conic Section</h1>
+        <p>
+          A conic section is the curve where a cone and plane meet.
+          They can come in four different shapes: circles, ellipses, hyperbolas, and parabolas.
+          A circle forms when the plane is level, an ellipse when the plane's angle is less than that of the cone, a parabola when both angles are equal, and a hyperbola when the plane's angle is greater.
+          Here is an image from <a href="https://en.wikipedia.org/wiki/Conic_section">Wikipedia</a> that shows examples of all four conic sections (circle and ellipse being the same):
+        </p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Conic_sections_with_plane.svg/1024px-Conic_sections_with_plane.svg.png" class="image">
       </div>
 
       <div id="un6b" class="anchor">Standard and General Form</div>
       <div class="topic">
         <h1>Standard and General Form</h1>
+        <p>
+          Every different form of a conic section has their own simplified standard and general forms.
+          You will notice that the variable `B` is missing in the general forms, only because it 'slants' the graph and is only useful in calculus.
+        </p>
+        <table class="eqmap">
+          <tr>
+            <td><strong>Type</strong></td>
+            <td><strong>Standard Form</strong></td>
+            <td><strong>General Form</strong></td>
+          </tr>
+          <tr>
+            <td>Circle</td>
+            <td>`(x-h)^2+(y-k)^2=r^2`</td>
+            <td>`x^2+y^2+Dx+Ey+F=0`</td>
+          </tr>
+          <tr>
+            <td>Ellipse</td>
+            <td>`(x-h)^2/a^2+(y-k)^2/b^2=1`</td>
+            <td>`Ax^2+Cy^2+Dx+Ey+F=0`</td>
+          </tr>
+          <tr>
+            <td>Parabola</td>
+            <td>`x=a(y-k)^2+h` or `y=a(x-h)^2+k`</td>
+            <td>`Ax^2+Dx+Ey=0`</td>
+          </tr>
+          <tr>
+            <td>Hyperbola</td>
+            <td>`(x-h)^2/z^2-(y-k)^2/b^2=+-1`</td>
+            <td>`Ax^2-Cy^2+Dx+Ey+F=0`</td>
+          </tr>
+        </table>
       </div>
 
       <div id="un6c" class="anchor">Graphing Conic Sections</div>
       <div class="topic">
         <h1>Graphing Conic Sections</h1>
+        <p>
+          Every conic section has their own limitations.
+          Each one has at least one focus, and the parabola includes a directrix (focus as a line).
+          With these values and the radii or limits, we can graph every single conic section.
+        </p>
+        <ul>
+          <li>
+
+          </li>
+        </ul>
       </div>
 
       <div id="un6d" class="anchor">Writing Equations for Conic Sections</div>
@@ -2476,7 +3428,6 @@
       <div class="topic">
         <h1>Unit Review</h1>
         <p>
-
         </p>
       </div>
     </div>
