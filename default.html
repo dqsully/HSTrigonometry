@@ -3360,7 +3360,7 @@
           A circle forms when the plane is level, an ellipse when the plane's angle is less than that of the cone, a parabola when both angles are equal, and a hyperbola when the plane's angle is greater.
           Here is an image from <a href="https://en.wikipedia.org/wiki/Conic_section">Wikipedia</a> that shows examples of all four conic sections (circle and ellipse being the same):
         </p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Conic_sections_with_plane.svg/1024px-Conic_sections_with_plane.svg.png" class="image">
+        <img style="max-width: 100%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Conic_sections_with_plane.svg/1024px-Conic_sections_with_plane.svg.png" class="image">
       </div>
 
       <div id="un6b" class="anchor">Standard and General Form</div>
@@ -3393,7 +3393,7 @@
           </tr>
           <tr>
             <td>Hyperbola</td>
-            <td>`(x-h)^2/z^2-(y-k)^2/b^2=+-1`</td>
+            <td>`(x-h)^2/a^2-(y-k)^2/b^2=+-1`</td>
             <td>`Ax^2-Cy^2+Dx+Ey+F=0`</td>
           </tr>
         </table>
@@ -3406,10 +3406,56 @@
           Every conic section has their own limitations.
           Each one has at least one focus, and the parabola includes a directrix (focus as a line).
           With these values and the radii or limits, we can graph every single conic section.
+          The center for every conic section is the same: `(h, k)`.
         </p>
         <ul>
           <li>
-
+            <h2>Circle</h2>
+            <p>
+              All of the points on a circle must be the same distance (`r`) from the center.
+              This means that the focus and the center are the same point.
+              The circle is also the easiest to graph.
+            </p>
+          </li>
+          <li>
+            <h2>Ellipse</h2>
+            <p>
+              An ellipse is similar to a circle, but of course, stretched in one dimension (or squashed in the other).
+              The foci of an ellipse are along the major (larger) diameter, and assuming it is `a`, will be at `(+-sqrt(a^2-b^2),k)`.
+              Also, the outer limits of an ellipse along `x` and `y` are `(h+-a,k)` and `(h,k+-b)`.
+              Now that these important points are specified, the full definition of an ellipse states that for every point along the edge, the summed distances to foci must equal the major diameter (`2a`).
+              This simplifies to an average of `a`, which a circle satisfies as well, and the circle is basically the square of ellipses.
+            </p>
+          </li>
+          <li>
+            <h2>Parabola</h2>
+            <p>
+              Parabolas are a bit different from anything else because they have <strong>Directrices</strong>.
+              In essence, every point on a parabola must be the same distance from the focus and vertically to the directrix, if the parabola is vertical.
+              A vertical parabola is solved for `y`, while a horizontal parabola is solved for `x`.
+              As usual, the center or <strong>vertex</strong> for a parabola is `(h,k)`, but the focus and directrix are a bit different.
+              I am going to create a couple new variables here, `c` and `d`, where `a=1/(2(c-d))` and `k=(c+d)/2`.
+              Simplified, `c=(4ak+1)/4a` and `d=(4ak-1)/4a`.
+              This makes it way easier to find the focus and directrix, because the focus is at `(h,c)` and the directrix is at `y=d`.
+              This also means that the focus and directrix are equidistant vertically to the vertex.
+            </p>
+          </li>
+          <li>
+            <h2>Hyperbola</h2>
+            <p>
+              Hyperbolas are by far the most interesting conic sections, because they are basically ellipses inverted in a dimension.
+              A hyperbola will have the two asymptotes `+- b/a(x-h)+k`, meaning the hyperbola will never intersect these lines.
+              Hyperbolas also have foci and limits.
+              In this case, I will be using a 'horizontal' hyperbola, so there will be a spot with no values along the `y` axis.
+              For 'vertical' hyperbolas, just switch `x` and `y`, and `a` and `b` in my equations.
+              When a hyperbola is simplified into standard form, if the right side is positive, it is a 'horizontal' hyperbola, and if the right side is negative, the hyperbola is respectively 'vertical'.
+            </p>
+            <p>
+              The inner limits of a hyperbola are at `(h+-a,k)`, meaning that if `k=0` these points are the x-intercepts.
+              The foci of a hyperbola are at `(+-sqrt(a^2+b^2),k)`, with only an operation change differentiating it from ellipses.
+              Now, the absolute difference between the distance between every point on the hyperbola and both foci must be equal to `2a`.
+              This is exactly like the ellipse, but again, one of the operations has switched.
+            </p>
           </li>
         </ul>
       </div>
@@ -3417,18 +3463,55 @@
       <div id="un6d" class="anchor">Writing Equations for Conic Sections</div>
       <div class="topic">
         <h1>Writing Equations for Conic Sections</h1>
+        <p>
+          To write an equation for a conic section, if you are given the type and needed points/lines (foci, center/vertex, radii, directrix) then you can simply replace every variable in the appropriate equation with the appropriate values.
+          For those, reference the past two topics.
+        </p>
       </div>
 
       <div id="un6e" class="anchor">Conic Section Applications</div>
       <div class="topic">
         <h1>Conic Section Applications</h1>
+        <p>
+          Conic sections can actually be used for more than you would think, mostly dealing with paths or calculus.
+          As calculus is the next course, other examples would include the paths of the planets (with the sun being a focus), focusing light or sound, and even with navigation.
+          It will make more sense in the next course, I promise.
+        </p>
       </div>
 
       <div id="un6r" class="anchor">Unit Review</div>
       <div class="topic">
         <h1>Unit Review</h1>
         <p>
+          A private contractor needs to make some <a href="https://www.youtube.com/watch?v=4KHCuXN2F3I">Elliptical Pool Tables</a> with minor radius of `4m` and foci that are `5m` apart.
+          He couldn't figure out how to build them, so he came to you.
+          Your job is to determine the major radius so you can give him dimensions to work with.
+          Major radius: (assume the center is `(0,0)` and round to two decimals)
+          <svg viewBox="-1 -1 18 18" id="un6bad" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #dd2200; fill-opacity: 1; stroke: none" />
+            <g style="font-style: normal; font-weight: normal; font-size: 15.06368446px; line-height: 125%; font-family: Sans; letter-spacing: 0px; word-spacing: 0px; fill: #dd2200; fill-opacity: 1; stroke: none; stroke-width: 1px; stroke-linecap: butt; stroke-linejoin: miter; stroke-opacity: 1">
+              <path d="m 8.8237951,2.5239677 -0.1912381,7.9363843 -1.2504035,0 -0.2059488,-7.9363843 1.6475904,0 z m -0.073553,10.9520633 -1.5004842,0 0,-1.551971 1.5004842,0 0,1.551971 z" />
+            </g>
+          </svg>
+          <svg viewBox="-1 -1 18 18" id="un6pass" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #1ec517; fill-opacity: 1; stroke: none" />
+            <path d="M 12.167969,3.2519531 C 10.197849,4.6081262 8.1088336,7.1395513 6.78125,10.175781 5.6544516,9.0070855 4.894824,8.4106287 3.3203125,7.4863281 L 2.6621094,8.6074219 C 4.5268851,9.7021191 4.8659662,9.922211 6.4453125,11.666016 l 0.7246094,0.798828 0.3691406,-1.013672 C 8.6912417,8.2904487 11.004097,5.6316523 12.90625,4.3222656 L 12.167969,3.2519531 Z" style="color: #000000; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: medium; line-height: normal; font-family: sans-serif; text-indent: 0; text-align: start; text-decoration: none; text-decoration-line: none; text-decoration-style: solid; text-decoration-color: #000000; letter-spacing: normal; word-spacing: normal; text-transform: none; direction: ltr; block-progression: tb; writing-mode: lr-tb; baseline-shift: baseline; text-anchor: start; white-space: normal; clip-rule: nonzero; display: inline; overflow: visible; visibility: visible; opacity: 1; isolation: auto; mix-blend-mode: normal; color-interpolation: sRGB; color-interpolation-filters: linearRGB; solid-color: #000000; solid-opacity: 1; fill: #1ec517; fill-opacity: 1; fill-rule: evenodd; stroke: none; stroke-width: 1.29999995; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; color-rendering: auto; image-rendering: auto; shape-rendering: auto; text-rendering: auto; enable-background: accumulate" />
+          </svg>
+          <input type="text" id="ell">
+          `m`.
         </p>
+        <script>
+          d('ell').addEventListener('input', function () {
+            var t = d('ell').value.replace(' ', '').replace(',', '');
+            if (Math.round(t*100) == 566) {
+              d('un6pass').style.display = 'inline-block';
+              d('un6bad').style.display = 'none';
+            } else {
+              d('un6pass').style.display = 'none';
+              d('un6bad').style.display = 'inline-block';
+            }
+          });
+        </script>
       </div>
     </div>
 
@@ -3464,8 +3547,30 @@
       <div class="topic">
         <h1>Unit Review</h1>
         <p>
-
+          <svg viewBox="-1 -1 18 18" id="un7bad" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #dd2200; fill-opacity: 1; stroke: none" />
+            <g style="font-style: normal; font-weight: normal; font-size: 15.06368446px; line-height: 125%; font-family: Sans; letter-spacing: 0px; word-spacing: 0px; fill: #dd2200; fill-opacity: 1; stroke: none; stroke-width: 1px; stroke-linecap: butt; stroke-linejoin: miter; stroke-opacity: 1">
+              <path d="m 8.8237951,2.5239677 -0.1912381,7.9363843 -1.2504035,0 -0.2059488,-7.9363843 1.6475904,0 z m -0.073553,10.9520633 -1.5004842,0 0,-1.551971 1.5004842,0 0,1.551971 z" />
+            </g>
+          </svg>
+          <svg viewBox="-1 -1 18 18" id="un7pass" style="height: 31px; width: 31px; display: none; margin-bottom: -9px;">
+            <path d="M 8,0 A 8,8 0 0 0 0,8 8,8 0 0 0 8,16 8,8 0 0 0 16,8 8,8 0 0 0 8,0 Z M 8,1 A 7,7 0 0 1 15,8 7,7 0 0 1 8,15 7,7 0 0 1 1,8 7,7 0 0 1 8,1 Z" style="opacity: 1; fill: #1ec517; fill-opacity: 1; stroke: none" />
+            <path d="M 12.167969,3.2519531 C 10.197849,4.6081262 8.1088336,7.1395513 6.78125,10.175781 5.6544516,9.0070855 4.894824,8.4106287 3.3203125,7.4863281 L 2.6621094,8.6074219 C 4.5268851,9.7021191 4.8659662,9.922211 6.4453125,11.666016 l 0.7246094,0.798828 0.3691406,-1.013672 C 8.6912417,8.2904487 11.004097,5.6316523 12.90625,4.3222656 L 12.167969,3.2519531 Z" style="color: #000000; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: medium; line-height: normal; font-family: sans-serif; text-indent: 0; text-align: start; text-decoration: none; text-decoration-line: none; text-decoration-style: solid; text-decoration-color: #000000; letter-spacing: normal; word-spacing: normal; text-transform: none; direction: ltr; block-progression: tb; writing-mode: lr-tb; baseline-shift: baseline; text-anchor: start; white-space: normal; clip-rule: nonzero; display: inline; overflow: visible; visibility: visible; opacity: 1; isolation: auto; mix-blend-mode: normal; color-interpolation: sRGB; color-interpolation-filters: linearRGB; solid-color: #000000; solid-opacity: 1; fill: #1ec517; fill-opacity: 1; fill-rule: evenodd; stroke: none; stroke-width: 1.29999995; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-dasharray: none; stroke-dashoffset: 0; stroke-opacity: 1; color-rendering: auto; image-rendering: auto; shape-rendering: auto; text-rendering: auto; enable-background: accumulate" />
+          </svg>
+          <input type="text" id="x">
         </p>
+        <script>
+          d('x').addEventListener('input', function () {
+            var t = d('x').value.replace(' ', '').replace(',', '');
+            if (Math.round(t*10) == 238) {
+              d('un7pass').style.display = 'inline-block';
+              d('un7bad').style.display = 'none';
+            } else {
+              d('un7pass').style.display = 'none';
+              d('un7bad').style.display = 'inline-block';
+            }
+          });
+        </script>
       </div>
     </div>
   </div>
